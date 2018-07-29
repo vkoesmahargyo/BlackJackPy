@@ -1,5 +1,5 @@
 import random
-from getkey import getkey, keys
+
 
 
 suits = ['Spades', 'Hearts', 'Clubs', 'Diamonds']*13
@@ -13,57 +13,57 @@ for i in range(1, 53):
 					}
 
 DECK_DICT = {
-				1: {'card': 'A of Spades', 'actual_value': [1, 11]}, 
-				2: {'card': '2 of Hearts', 'actual_value': [2]}, 
-				3: {'card': '3 of Clubs', 'actual_value': [3]}, 
-				4: {'card': '4 of Diamonds', 'actual_value': [4]}, 
-				5: {'card': '5 of Spades', 'actual_value': [5]}, 
-				6: {'card': '6 of Hearts', 'actual_value': [6]}, 
-				7: {'card': '7 of Clubs', 'actual_value': [7]}, 
-				8: {'card': '8 of Diamonds', 'actual_value': [8]}, 
+				1: {'card': 'A of Spades', 'actual_value': [1, 11]},
+				2: {'card': '2 of Hearts', 'actual_value': [2]},
+				3: {'card': '3 of Clubs', 'actual_value': [3]},
+				4: {'card': '4 of Diamonds', 'actual_value': [4]},
+				5: {'card': '5 of Spades', 'actual_value': [5]},
+				6: {'card': '6 of Hearts', 'actual_value': [6]},
+				7: {'card': '7 of Clubs', 'actual_value': [7]},
+				8: {'card': '8 of Diamonds', 'actual_value': [8]},
 				9: {'card': '9 of Spades', 'actual_value': [9]},
-				10: {'card': '10 of Hearts', 'actual_value': [10]}, 
-				11: {'card': 'J of Clubs', 'actual_value': [10]}, 
-				12: {'card': 'Q of Diamonds', 'actual_value': [10]}, 
-				13: {'card': 'K of Spades', 'actual_value': [10]}, 
-				14: {'card': 'A of Hearts', 'actual_value': [1, 11]}, 
-				15: {'card': '2 of Clubs', 'actual_value': [2]}, 
-				16: {'card': '3 of Diamonds', 'actual_value': [3]}, 
-				17: {'card': '4 of Spades', 'actual_value': [4]}, 
-				18: {'card': '5 of Hearts', 'actual_value': [5]}, 
-				19: {'card': '6 of Clubs', 'actual_value': [6]}, 
-				20: {'card': '7 of Diamonds', 'actual_value': [7]}, 
-				21: {'card': '8 of Spades', 'actual_value': [8]}, 
-				22: {'card': '9 of Hearts', 'actual_value': [9]}, 
-				23: {'card': '10 of Clubs', 'actual_value': [10]}, 
-				24: {'card': 'J of Diamonds', 'actual_value': [10]}, 
-				25: {'card': 'Q of Spades', 'actual_value': [10]}, 
-				26: {'card': 'K of Hearts', 'actual_value': [10]}, 
-				27: {'card': 'A of Clubs', 'actual_value': [1, 11]}, 
-				28: {'card': '2 of Diamonds', 'actual_value': [2]}, 
-				29: {'card': '3 of Spades', 'actual_value': [3]}, 
-				30: {'card': '4 of Hearts', 'actual_value': [4]}, 
-				31: {'card': '5 of Clubs', 'actual_value': [5]}, 
-				32: {'card': '6 of Diamonds', 'actual_value': [6]}, 
-				33: {'card': '7 of Spades', 'actual_value': [7]}, 
-				34: {'card': '8 of Hearts', 'actual_value': [8]}, 
-				35: {'card': '9 of Clubs', 'actual_value': [9]}, 
-				36: {'card': '10 of Diamonds', 'actual_value': [10]}, 
-				37: {'card': 'J of Spades', 'actual_value': [10]}, 
-				38: {'card': 'Q of Hearts', 'actual_value': [10]}, 
-				39: {'card': 'K of Clubs', 'actual_value': [10]}, 
-				40: {'card': 'A of Diamonds', 'actual_value': [1, 11]}, 
-				41: {'card': '2 of Spades', 'actual_value': [2]}, 
-				42: {'card': '3 of Hearts', 'actual_value': [3]}, 
-				43: {'card': '4 of Clubs', 'actual_value': [4]}, 
-				44: {'card': '5 of Diamonds', 'actual_value': [5]}, 
-				45: {'card': '6 of Spades', 'actual_value': [6]}, 
-				46: {'card': '7 of Hearts', 'actual_value': [7]}, 
-				47: {'card': '8 of Clubs', 'actual_value': [8]}, 
-				48: {'card': '9 of Diamonds', 'actual_value': [9]}, 
-				49: {'card': '10 of Spades', 'actual_value': [10]}, 
-				50: {'card': 'J of Hearts', 'actual_value': [10]}, 
-				51: {'card': 'Q of Clubs', 'actual_value': [10]}, 
+				10: {'card': '10 of Hearts', 'actual_value': [10]},
+				11: {'card': 'J of Clubs', 'actual_value': [10]},
+				12: {'card': 'Q of Diamonds', 'actual_value': [10]},
+				13: {'card': 'K of Spades', 'actual_value': [10]},
+				14: {'card': 'A of Hearts', 'actual_value': [1, 11]},
+				15: {'card': '2 of Clubs', 'actual_value': [2]},
+				16: {'card': '3 of Diamonds', 'actual_value': [3]},
+				17: {'card': '4 of Spades', 'actual_value': [4]},
+				18: {'card': '5 of Hearts', 'actual_value': [5]},
+				19: {'card': '6 of Clubs', 'actual_value': [6]},
+				20: {'card': '7 of Diamonds', 'actual_value': [7]},
+				21: {'card': '8 of Spades', 'actual_value': [8]},
+				22: {'card': '9 of Hearts', 'actual_value': [9]},
+				23: {'card': '10 of Clubs', 'actual_value': [10]},
+				24: {'card': 'J of Diamonds', 'actual_value': [10]},
+				25: {'card': 'Q of Spades', 'actual_value': [10]},
+				26: {'card': 'K of Hearts', 'actual_value': [10]},
+				27: {'card': 'A of Clubs', 'actual_value': [1, 11]},
+				28: {'card': '2 of Diamonds', 'actual_value': [2]},
+				29: {'card': '3 of Spades', 'actual_value': [3]},
+				30: {'card': '4 of Hearts', 'actual_value': [4]},
+				31: {'card': '5 of Clubs', 'actual_value': [5]},
+				32: {'card': '6 of Diamonds', 'actual_value': [6]},
+				33: {'card': '7 of Spades', 'actual_value': [7]},
+				34: {'card': '8 of Hearts', 'actual_value': [8]},
+				35: {'card': '9 of Clubs', 'actual_value': [9]},
+				36: {'card': '10 of Diamonds', 'actual_value': [10]},
+				37: {'card': 'J of Spades', 'actual_value': [10]},
+				38: {'card': 'Q of Hearts', 'actual_value': [10]},
+				39: {'card': 'K of Clubs', 'actual_value': [10]},
+				40: {'card': 'A of Diamonds', 'actual_value': [1, 11]},
+				41: {'card': '2 of Spades', 'actual_value': [2]},
+				42: {'card': '3 of Hearts', 'actual_value': [3]},
+				43: {'card': '4 of Clubs', 'actual_value': [4]},
+				44: {'card': '5 of Diamonds', 'actual_value': [5]},
+				45: {'card': '6 of Spades', 'actual_value': [6]},
+				46: {'card': '7 of Hearts', 'actual_value': [7]},
+				47: {'card': '8 of Clubs', 'actual_value': [8]},
+				48: {'card': '9 of Diamonds', 'actual_value': [9]},
+				49: {'card': '10 of Spades', 'actual_value': [10]},
+				50: {'card': 'J of Hearts', 'actual_value': [10]},
+				51: {'card': 'Q of Clubs', 'actual_value': [10]},
 				52: {'card': 'K of Diamonds', 'actual_value': [10]}
 }
 
@@ -99,9 +99,9 @@ def instructions():
 			but only one of the dealer's cards will be shown. You can choose
 			to stand (s) - stop being dealt cards, or hit (h) - continue
 			to be dealth cards. All face cards are worth 10, an Ace can be
-			either 1 or 11. 
+			either 1 or 11.
 			The Dealer must continue to take cards until they are above 17.
-			To quit at any time, press 'q'. 
+			To quit at any time, press 'q'.
 			[WILL ADD BETTING STUFF LATER]
 			"""
 	return rules
@@ -113,15 +113,15 @@ print("Welcome to Blackjack!\n",instructions())
 
 
 user_name = input("\nPlease enter your name: ")
-if len(user_list) == 2:
+if len(user_list) > 2:
 	pass # For more than one user
 else:
 	user_list[1]['name'] = user_name
 
 while True:
-	
-	deck = shuffle_deck(DECK_DICT) # deck is a list of shuffled numbers 
-								#correlating to values in DECK_DICT	
+
+	deck = shuffle_deck(DECK_DICT) # deck is a list of shuffled numbers
+								#correlating to values in DECK_DICT
 
 	place_bet(user_list) # will prompt user to choose betting amount (or quit)
 	if place_bet == 'q':
@@ -130,13 +130,13 @@ while True:
 	# Place deal card function here #
 
 	# Put tally of cards and show one of the dealer's cards
-	
+
 	while True:
 		hs_input = input('Would you like to hit (h) or stand (s)?' )
-		if hs_input.lower() is in ['s', 'stand']:
+		if hs_input.lower() in ['s', 'stand']:
 			# Function for standing
 			break
-		elif hs_input.lower() is in ['h', 'hit']:
+		elif hs_input.lower() in ['h', 'hit']:
 			# function for hitting
 			pass
 		else:
@@ -145,7 +145,7 @@ while True:
 
 	# Place dealer here #
 
-	# show outcome - win/lose 
+	# show outcome - win/lose
 
 	# Adjust their total balance/money
 
@@ -155,8 +155,3 @@ while True:
 	else:
 		print('Thanks for playing!')
 		break
-
-
-
-		
-
