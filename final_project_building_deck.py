@@ -75,7 +75,7 @@ user_list = [
 			{
 			'name': '',
 			'current_hand': [],
-			'total_money': 0,
+			'total_money': 1000,
 			'current_bet': 0
 			}
 
@@ -106,9 +106,57 @@ def instructions():
 			"""
 	return rules
 
+def place_bet(user_list):
+	pass
 
+print("Welcome to Blackjack!\n",instructions())
+
+
+user_name = input("\nPlease enter your name: ")
+if len(user_list) == 2:
+	pass # For more than one user
+else:
+	user_list[1]['name'] = user_name
 
 while True:
 	
+	deck = shuffle_deck(DECK_DICT) # deck is a list of shuffled numbers 
+								#correlating to values in DECK_DICT	
+
+	place_bet(user_list) # will prompt user to choose betting amount (or quit)
+	if place_bet == 'q':
+		break
+
+	# Place deal card function here #
+
+	# Put tally of cards and show one of the dealer's cards
 	
+	while True:
+		hs_input = input('Would you like to hit (h) or stand (s)?' )
+		if hs_input.lower() is in ['s', 'stand']:
+			# Function for standing
+			break
+		elif hs_input.lower() is in ['h', 'hit']:
+			# function for hitting
+			pass
+		else:
+			print('Please only put hit (h) or stand (s)')
+			continue
+
+	# Place dealer here #
+
+	# show outcome - win/lose 
+
+	# Adjust their total balance/money
+
+	play_again = input('Would you like to play again (yes/no)? ')
+	if play_again == 'y' or play_again == 'yes':
+		continue
+	else:
+		print('Thanks for playing!')
+		break
+
+
+
+		
 
