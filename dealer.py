@@ -73,7 +73,7 @@ DECK_DICT = {
 user_list = [
 			{
 			'name': 'dealer',
-			'current_hand': [1, 2]
+			'current_hand': [1, 14]
 			},
 			{
 			'name': '',
@@ -180,10 +180,12 @@ def dealer_cards_check_total(user_list, deck):
 	"""This will see if total is soft 17, >= hard 17, or less than 17 """
 	total, card_1_len, card_2_len = get_dealer_two_card_sum(user_list, deck) # getting sum of first 2 cards in dealer's hand
 	print(print_dealer_cards(running_total=total)) # Initial print out of dealer's 2 cards
-	if total >= 17 and card_1_len != 2 and card_2_len != 2: # total is hard 17 or above
+	if total > 17 : 
 		return total
 	elif total < 17:
 		return less_than_17(user_list, deck, total, card_1_len, card_2_len)
+	elif total == 17 and card_1_len != 2 and card_2_len != 2: # total is hard 17 
+		return total
 	else: # soft 17
 		total = 7 
 		return soft_17(user_list, deck, total)
