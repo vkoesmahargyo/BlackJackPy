@@ -218,19 +218,24 @@ def check_if_ace(card):
 		return False
 
 def less_than_17(user_list, deck, total, card_1_ace, card_2_ace):
-	"""Bulk of computations: what to do if our total is less than 17
-	and then split up according to if there is no ace/two aces or one ace."""
 	if (card_1_ace == False and card_2_ace == False) or (card_1_ace == True and card_2_ace == True): # make sure no Aces or both aces
+		soft_card = False
 		while True:
 			curr_card = deck.pop() # take card from deck
 			user_list[0]['current_hand'].append(curr_card) # add to dealer's current hand
+			temp_total = total + DECK_DICT[curr_card]['value'][0]
+
 			if check_if_ace(curr_card) and total < 11 and total != 6: # if new card is an ace and total is less than 11 but not soft 17
 				total += 11
+				soft_card = True
 			elif check_if_ace(curr_card) and total >= 11: # if new card is an ace and total is >= 11
 				total += 1
 			elif check_if_ace(curr_card) and total == 6: # soft 17
 				total = 7
 				total = soft_17(user_list, deck, total)
+			elif soft_card == True and temp_total >= 22:
+				total = temp_total - 10
+				soft_card = False
 			else:
 				total += DECK_DICT[curr_card]['value'][0]
 
@@ -245,7 +250,6 @@ def less_than_17(user_list, deck, total, card_1_ace, card_2_ace):
 			curr_card = deck.pop() # take card from deck
 			user_list[0]['current_hand'].append(curr_card) # add to dealer's current hand
 			curr_card_value = DECK_DICT[curr_card]['value'][0] # Ace will always = 1 in this case
-
 			temp_total = total + curr_card_value
 
 			if temp_total >= 22 and soft_card: # check if dealer busts with soft hand
