@@ -70,33 +70,107 @@ DECK_DICT = {
 				51: {'card': 'Q ♦', 'value': [10]},
 				52: {'card': 'K ♠', 'value': [10]}}
 
-user_list = [
-			{
-			'name': 'dealer',
-			'current_hand': []
-			},
-			{
-			'name': '',
-			'current_hand': [],
-			'total_money': 1000,
-			'current_bet': 0
-			}
+# Player variables, atributes, and methods
+class Player(object):
+    player_hand = []
+    balance = 1000
+    bet = 0
+
+    def __init__(self, name):
+        self.name = name
+
+	# prints the current balance
+    def show_balance(self):
+        print("{} currently has ${}.".format(self.name, self.balance))
+
+	# shows what's in the player's current hand
+    def show_hand(self):
+        if len(self.player_hand) == 0:
+            print("There is nothing in {}'s hand right now.".format(self.name))
+        else:
+            print("{}'s hand: [{}]  [{}]".format(self.name, self.player_hand[0][0], self.player_hand[1][0]))
+
+	# gets the player's bet
+	# THIS SHOULD MAYBE GO INTO THE GAME CODE?
+    def get_wager(self):
+        while True:
+            try:
+                wager = int(input("How much would you like to bet? (Minimum is $10)." \
+                                  + "\n" + "Bet: $ "))
+                if wager < 10:
+                    print("\n" + "The minimum bet is $10.  Please try again..." + "\n")
+                    sleep(1)
+                elif wager > self.balance:
+                    print("\n" + "You cannot bet more money than you have!" \
+                    +  " You bet ${}, but you only have ${}.".format(wager, self.balance) \
+                    + " Please try again..." + "\n")
+                    sleep(1)
+                else:
+                    self.bet += wager
+                    print("\n" + ("=" * 32) + "\n" \
+                          + "Your bet for this hand is ${}.".format(self.bet) \
+                          + "\n" + ("=" * 32) + "\n")
+                    sleep(1)
+                    break
+            except:
+                print("\n" + "Your bet must be a integar number. Please try again..." + "\n")
+                sleep(1)
+
+	# gets a card for the player
+    def get_card(self):
+        card_key = shuffled_cards.give_one_card()
+        hand_card = [DECK_DICT[card_key]["card"], DECK_DICT[card_key]["value"]]
+        self.player_hand.append(hand_card)
+
+	# DOUBLE DOWN, NOT TESTED!!!
+	def double_down_bet(self):
+		self.bet *= 2
+		return self.bet
+
+	"""THIS NEEDS TO BE CHANGED FOR WHATEVER VARIABLES ARE WIN LOSS!"""
+    # updates the balance, resets the player's bet
+    def update_balance(self):
+        if hand_won == True:
+            self.balance += self.bet
+        else:
+            self.balance -= self.bet
+        self.bet = 0
+
+	# resets the player's hand
+    def reset_hand(self):
+        self.player_hand = []
 
 
-]
+# Card_Deck variables and methods
+class Card_Deck(object):
+    deck = []
 
-def shuffle_deck(deck):
-	shuffled_list = []
-	for key in deck.keys():
-		shuffled_list.append(key)
-	random.shuffle(shuffled_list)
-	return shuffled_list
+	# generates a new deck
+    def new_deck(self):
+        self.deck = [x for x in range(1,53)]
+
+	# shuffles the deck
+    def shuffle(self):
+        random.shuffle(self.deck)
+
+	# removes card from deck and returns
+    def give_one_card(self):
+        card = self.deck.pop()
+        return card
 
 
-def deal_card(deck, user):
-	current_card = deck.pop()
+# get a player name
+def get_player_name():
+    while True:
+        user_name = input("\nPlease enter your name: ")
+        if not user_name:
+            print("You must enter a name to play.  Please try again...")
+            sleep(1)
+        else:
+            return user_name
+            break
 
-
+# tell player how to play Black Jack
 def instructions():
 	rules = """The point of the game is to beat the dealer's hand without
 			going over 21. You will be dealt 2 cards, as will the dealer
@@ -111,16 +185,11 @@ def instructions():
 			"""
 	return rules
 
-def place_bet(user_list):
-	pass
-
-
 
 ##### DEALER FUNCTIONS #####
 def get_dealer_face_up_card(user_list, deck):
 	"""Used only in the beginning of the game to get one of the dealer's cards."""
 	print('Dealer:\t', DECK_DICT[user_list[0]['current_hand'][0]]['card']) # printing out only the first of dealer's cards
-
 
 
 def get_dealer_two_card_sum(user_list, deck):
@@ -238,6 +307,8 @@ def print_dealer_cards(running_total, user_list=user_list):
 		print(DECK_DICT[card]['card'])
 	print('\n\tTotal: ', running_total)
 
+
+
 def get_outcome(dealer_final_total, player_final_total):
 	#player_final_total = 17
 	print('FINAL OUTCOME\n-----------')
@@ -249,31 +320,63 @@ def get_outcome(dealer_final_total, player_final_total):
 		print('You lose!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, user_list[1]['name'], player_final_total))
 	elif dealer_final_total == player_final_total:
 		print('Push!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, user_list[1]['name'], player_final_total))
+
+
+# list of players, may not need
+user_list = [
+			{
+			'name': 'dealer',
+			'current_hand': []
+			},
+			{
+			'name': '',
+			'current_hand': [],
+			'total_money': 1000,
+			'current_bet': 0
+			}
+]
+
+# create deck to play with
+shuffled_cards = Card_Deck()
+
+
 ### START OF GAME/WHILE LOOP ###
 
 print("Welcome to Blackjack!\n",instructions())
 
+# Get the player's name
+player_1 = Player(get_player_name())
 
-user_name = input("\nPlease enter your name: ")
-if len(user_list) > 2:
-	pass # For more than one user
-else:
-	user_list[1]['name'] = user_name
+# variable for while loop
+black_jack_running = True
+while black_jack_running == True:
 
-while True:
+	# Get the player's bet
+	player_1.get_wager()
 
-	deck = shuffle_deck(DECK_DICT) # deck is a list of shuffled numbers
-								#correlating to values in DECK_DICT
+	# Get new deck and shuffle
+	shuffled_cards.new_deck()
+	shuffled_cards.shuffle()
 
-	place_bet(user_list) # will prompt user to choose betting amount (or quit)
-	if place_bet == 'q':
-		break
+	# Deal two cards to player
+	player_1.get_card()
+	player_1.get_card()
 
-	# Place deal card function here #
+	# Print the player's hand:
+	print("Your cards: [{}]  [{}]".format(player_1.player_hand[0][0], player_2.player_hand[1][0]))
+
+
+	""" Break to stop while loop until rest of code filled in"""
+	black_jack_running = False
+
+	# Get one dealer's card
+	# Show dealer's card here
+	# REDUNDANT TO BELOW?
 
 	# Put tally of cards and show one of the dealer's cards
 	get_dealer_face_up_card(user_list, deck)
 
+	# Ask if player wants to hit or stand
 	while True:
 		hs_input = input('Would you like to hit (h) or stand (s)?' )
 		if hs_input.lower() in ['s', 'stand']:
@@ -286,17 +389,33 @@ while True:
 			print('Please only put hit (h) or stand (s)')
 			continue
 
+	# Dealer gets one or more cards
+
+	# Show dealer cards
+	# Do we want to do this one card at a time?
 	dealer_cards_check_total(user_list, deck) # will give us the dealer's cards
+
+	# Get total of user's hand
+	# Get total of dealer's hand
+
+	#  Compare and determine winner
 
 	# show outcome - win/lose
 	dealer_final_total = dealer_cards_check_total(user_list, deck)
 	get_outcome(dealer_final_total, player_final_total)
 
-	# Adjust their total balance/money
+	# Adjust player balance (money)
+	player_1.update_balance()
 
-	play_again = input('Would you like to play again (yes/no)? ')
-	if play_again == 'y' or play_again == 'yes':
-		continue
-	else:
-		print('Thanks for playing!')
-		break
+	# Reset the player's hand to empty list
+	player_1.reset_hand()
+
+	# Ask if player would like to play again
+	while True:
+		play_again = input('Would you like to play again (yes/no)? ')
+		if play_again.lower() in "yes":
+			continue
+		elif play_again.lower() in "no"
+			print('Thanks for playing!')
+			black_jack_running = False
+			break
