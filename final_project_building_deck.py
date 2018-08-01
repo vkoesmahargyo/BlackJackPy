@@ -397,7 +397,7 @@ while black_jack_running == True:
 
 	# Show dealer cards
 	# Do we want to do this one card at a time?
-	dealer_cards_check_total(user_list, deck) # will give us the dealer's cards
+	dealer_final_total= dealer_cards_check_total(user_list, deck) # will give us the dealer's cards
 
 	# Get total of user's hand
 	# Get total of dealer's hand
@@ -405,7 +405,7 @@ while black_jack_running == True:
 	#  Compare and determine winner
 
 	# show outcome - win/lose
-	dealer_final_total = dealer_cards_check_total(user_list, deck)
+
 	get_outcome(dealer_final_total, player_final_total)
 
 	# Adjust player balance (money)
