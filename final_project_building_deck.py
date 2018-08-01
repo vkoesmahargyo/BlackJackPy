@@ -417,4 +417,5 @@ while black_jack_running == True:
 			continue
 		elif play_again.lower() in "no"
 			print('Thanks for playing!')
+			black_jack_running = False
 			break
