@@ -243,3 +243,14 @@ elif dealer_final_total > player_final_total:
 	print('You lose!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, user_list[1]['name'], player_final_total))
 elif dealer_final_total == player_final_total:
 	print('Push!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, user_list[1]['name'], player_final_total))
+
+## Help ##
+
+print("""\t\tSuggested Help
+		----------------
+		If you have 17 or better - [S]
+		
+		If dealer is showing:
+			2-6: [S] with 12 or above; [DD] with 10/11
+			Ace or 7-10: [H] with 16 or below; Do not [DD] 
+			""")
