@@ -95,7 +95,7 @@ class Player(object):
 		to_print = []
 		for i in range(len(player_1.player_hand)):
 			to_print.append(player_1.player_hand[i][0])
-		print("[" + "]  [".join(lst) + "]")
+		print("[" + "]  [".join(to_print) + "]")
 
 	# gets the player's bet
 	# THIS SHOULD MAYBE GO INTO THE GAME CODE?
@@ -125,34 +125,17 @@ class Player(object):
 
 	# gets a card for the player
 	def get_card(self):
-<<<<<<< HEAD
-    	card_key = shuffled_cards.give_one_card()
-        hand_card = [DECK_DICT[card_key]["card"], DECK_DICT[card_key]["value"]]
-        self.player_hand.append(hand_card)
-
-	# check if card is ace
-    def check_if_ace(self):
-        if self.player_hand[len(self.player_hand)-1][0][0] == "A":
-            self.has_ace = True
-	# add card value to hand value
-    def set_hand_values(self):
-		self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
-=======
 		card_key = shuffled_cards.give_one_card()
 		hand_card = [DECK_DICT[card_key]["card"], DECK_DICT[card_key]["value"]]
 		self.player_hand.append(hand_card)
 
+	# check if card is ace
 	def check_if_ace(self):
 		if self.player_hand[len(self.player_hand)-1][0][0] == "A":
 			self.has_ace = True
-
+	# add card value to hand value
 	def set_hand_values(self):
-		#if self.has_ace == False:
 		self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
-		#elif self.has_ace == True:
-		#self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
-		#self.ace_value = self.hand_value + 10
->>>>>>> ef8865a0400db008f1eb9eff098ec2cf319646ae
 
 	# doubles player's bet
 	def double_down_bet(self):
@@ -160,21 +143,8 @@ class Player(object):
 		return self.bet
 
 	"""THIS NEEDS TO BE CHANGED FOR WHATEVER VARIABLES ARE WIN LOSS!"""
-    # updates the balance
+	# updates the balance
 	def update_balance(self):
-<<<<<<< HEAD
-        if hand_won == True:
-            self.balance += self.bet
-        elif hand_won == False:
-            self.balance -= self.bet
-
-	# resets the player's hand
-	def reset_player_attr(self):
-        self.player_hand = []
-        self.hand_value = 0
-        self.has_ace = False
-        self.bet = 0
-=======
 		if hand_won == True:
 			self.balance += self.bet
 		elif hand_won == False:
@@ -184,10 +154,8 @@ class Player(object):
 	def reset_player_attr(self):
 		self.player_hand = []
 		self.hand_value = 0
-		# self.ace_value = 0
 		self.has_ace = False
 		self.bet = 0
->>>>>>> ef8865a0400db008f1eb9eff098ec2cf319646ae
 
 
 # Card_Deck variables and methods
