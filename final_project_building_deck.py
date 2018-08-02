@@ -236,13 +236,15 @@ class Dealer():
 		return total, card_1_ace, card_2_ace
 
 	def check_if_ace(self, card):
+		"""Checking if card is an Ace"""
 		if len(DECK_DICT[card]['value']) == 2:
 			return True
 		else:
 			return False
 
 
-	def less_than_17(self, total, card_1_ace, card_2_ace):
+	def less_than_18(self, total, card_1_ace, card_2_ace):
+		"""If card is a soft 17 or less """
 		if (card_1_ace == False and card_2_ace == False): # make sure no Aces
 			soft_card = False
 			while True:
@@ -297,10 +299,11 @@ class Dealer():
 		dealer.print_dealer_cards(running_total=total, turn = True) # Initial print out of dealer's 2 cards
 		if total > 17 :
 			return total
-		elif total <= 17:
-			return dealer.less_than_17(total, card_1_ace, card_2_ace)
 		elif total == 17 and card_1_ace == False and card_2_ace == False: # total is hard 17
 			return total
+		elif total <= 17:
+			return dealer.less_than_18(total, card_1_ace, card_2_ace)
+
 
 
 	def print_dealer_cards(self, running_total, turn):
@@ -318,7 +321,6 @@ class Dealer():
 			sleep(1)
 
 		else:
-			#for card in range(2, len(user_list[0]['current_hand'])):
 			print(DECK_DICT[user_list[0]['current_hand'][-1]]['card'])
 			sleep(1)
 			print('Calculating...')
@@ -329,7 +331,6 @@ class Dealer():
 
 
 def get_outcome(dealer_final_total, player_final_total):
-#player_final_total = 17
 	print('FINAL OUTCOME\n-----------')
 	if dealer_final_total > 21:
 		print('Dealer busts! You win.')
