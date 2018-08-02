@@ -73,11 +73,18 @@ DECK_DICT = {
 # Player variables, atributes, and methods
 class Player(object):
     player_hand = []
+	hand_value = 0
+	# ace_value = 0
+	has_ace = False
     balance = 1000
     bet = 0
 
     def __init__(self, name):
         self.name = name
+
+	# Just for troubleshooting
+    def __repr__(self):
+        return "Name: {}, Player Hand: {}, Hand Val: {}, Has Ace: {}, Balance = {}, Bet = {}". format(self.name, self.player_hand, self.hand_value, self.has_ace, self.balance, self. bet)
 
 	# prints the current balance
     def show_balance(self):
@@ -85,10 +92,10 @@ class Player(object):
 
 	# shows what's in the player's current hand
     def show_hand(self):
-        if len(self.player_hand) == 0:
-            print("There is nothing in {}'s hand right now.".format(self.name))
-        else:
-            print("{}'s hand: [{}]  [{}]".format(self.name, self.player_hand[0][0], self.player_hand[1][0]))
+    	to_print = []
+    	for i in range(len(player_1.player_hand)):
+        	to_print.append(player_1.player_hand[i][0])
+    	print("[" + "]  [".join(lst) + "]")
 
 	# gets the player's bet
 	# THIS SHOULD MAYBE GO INTO THE GAME CODE?
@@ -122,23 +129,37 @@ class Player(object):
         hand_card = [DECK_DICT[card_key]["card"], DECK_DICT[card_key]["value"]]
         self.player_hand.append(hand_card)
 
-	# DOUBLE DOWN, NOT TESTED!!!
-	def double_down_bet(self):
-		self.bet *= 2
-		return self.bet
+    def check_if_ace(self):
+        if self.player_hand[len(self.player_hand)-1][0][0] == "A":
+            self.has_ace = True
+
+    def set_hand_values(self):
+#         if self.has_ace == False:
+          self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
+#         elif self.has_ace == True:
+#             self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
+#             self.ace_value = self.hand_value + 10
+
+	# doubles player's bet
+    def double_down_bet(self):
+        self.bet *= 2
+        return self.bet
 
 	"""THIS NEEDS TO BE CHANGED FOR WHATEVER VARIABLES ARE WIN LOSS!"""
-    # updates the balance, resets the player's bet
+    # updates the balance
     def update_balance(self):
         if hand_won == True:
             self.balance += self.bet
-        else:
+        elif hand_won == False:
             self.balance -= self.bet
-        self.bet = 0
 
 	# resets the player's hand
-    def reset_hand(self):
+    def reset_player_attr(self):
         self.player_hand = []
+        self.hand_value = 0
+#         self.ace_value = 0
+        self.has_ace = False
+        self.bet = 0
 
 
 # Card_Deck variables and methods
@@ -349,22 +370,28 @@ player_1 = Player(get_player_name())
 
 # variable for while loop
 black_jack_running = True
+
+# Start the game while loop!
 while black_jack_running == True:
-
-	# Get the player's bet
-	player_1.get_wager()
-
+	
 	# Get new deck and shuffle
 	shuffled_cards.new_deck()
 	shuffled_cards.shuffle()
 
-	# Deal two cards to player
-	player_1.get_card()
-	player_1.get_card()
+	# Get the player's bet
+	player_1.get_wager()
 
-	# Print the player's hand:
-	print("Your cards: [{}]  [{}]".format(player_1.player_hand[0][0], player_2.player_hand[1][0]))
+	# Deal a card to the player, check if it's an ace
+	# increment value of hand, repeat for 2nd card
+	player_1.get_card()
+	player_1.check_if_ace()
+	player_1.set_hand_values()
+	player_1.get_card()
+	player_1.check_if_ace()
+	player_1.set_hand_values()
 
+	# Show the player's hand:
+	player_1.show_hand()
 
 	""" Break to stop while loop until rest of code filled in"""
 	black_jack_running = False
@@ -408,7 +435,7 @@ while black_jack_running == True:
 	player_1.update_balance()
 
 	# Reset the player's hand to empty list
-	player_1.reset_hand()
+	player_1.reset_player_attr()
 
 	# Ask if player would like to play again
 	while True:
