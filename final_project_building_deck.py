@@ -86,20 +86,21 @@ class Player(object):
 	def __repr__(self):
 		return "Name: {}, Player Hand: {}, Hand Val: {}, Has Ace: {}, Balance = {}, Bet = {}". format(self.name, self.player_hand, self.hand_value, self.has_ace, self.balance, self. bet)
 
-	# prints the current balance
+
 	def show_balance(self):
+		"""Prints the current balance """
 		print("{} currently has ${}.".format(self.name, self.balance))
 
-	# shows what's in the player's current hand
 	def show_hand(self):
+		"""Shows what's in the player's current hand"""
 		to_print = []
 		for i in range(len(player_1.player_hand)):
 			to_print.append(player_1.player_hand[i][0])
 		print("[" + "]  [".join(to_print) + "]")
 
-	# gets the player's bet
 	# THIS SHOULD MAYBE GO INTO THE GAME CODE?
 	def get_wager(self):
+		"""Gets the player's bet"""
 		while True:
 			try:
 				wager = int(input("How much would you like to bet? (Minimum is $10)." \
@@ -125,33 +126,35 @@ class Player(object):
 
 	# gets a card for the player
 	def get_card(self):
+		"""Gets a card for the player """
 		card_key = shuffled_cards.give_one_card()
 		hand_card = [DECK_DICT[card_key]["card"], DECK_DICT[card_key]["value"]]
 		self.player_hand.append(hand_card)
 
-	# check if card is ace
 	def check_if_ace(self):
+		"""Checks if card is an Ace"""
 		if self.player_hand[len(self.player_hand)-1][0][0] == "A":
 			self.has_ace = True
-	# add card value to hand value
+
 	def set_hand_values(self):
+		"""Add card value to hand value"""
 		self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
 
-	# doubles player's bet
 	def double_down_bet(self):
+		"""Doubles the player's bet for doubling down """
 		self.bet *= 2
 		return self.bet
 
 	"""THIS NEEDS TO BE CHANGED FOR WHATEVER VARIABLES ARE WIN LOSS!"""
-	# updates the balance
 	def update_balance(self):
+		"""Updates the balance """
 		if hand_won == True:
 			self.balance += self.bet
 		elif hand_won == False:
 			self.balance -= self.bet
 
-	# resets the player's hand
 	def reset_player_attr(self):
+		""" Resets the player's hand"""
 		self.player_hand = []
 		self.hand_value = 0
 		self.has_ace = False
@@ -426,7 +429,6 @@ while black_jack_running == True:
 	dealer_final_total= dealer.dealer_cards_check_total() # will give us the dealer's cards
 
 	# Get total of user's hand
-	# Get total of dealer's hand
 
 	#  Compare and determine winner
 
