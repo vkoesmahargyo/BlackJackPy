@@ -367,7 +367,7 @@ def get_outcome(dealer_final_total, player_final_total):
 user_list = [
 			{
 			'name': 'dealer',
-			'current_hand': [5, 6]
+			'current_hand': [ ]
 			},
 			{
 			'name': '',
@@ -427,8 +427,8 @@ while black_jack_running == True:
 	## Get total of player cards  - if total is 21,
 	# Ask if player wants to hit or stand
 	while True:
-		if blackjack == True:
-			break
+		#if blackjack == True:
+		#	break
 		hs_input = input('Would you like to hit (h) or stand (s)?' )
 		if hs_input.lower() in ['s', 'stand']:
 			# Function for standing
@@ -444,7 +444,7 @@ while black_jack_running == True:
 
 	# Show dealer cards
 	# Do we want to do this one card at a time?
-	dealer_final_total= dealer_cards_check_total() # will give us the dealer's cards
+	dealer_final_total= dealer.dealer_cards_check_total() # will give us the dealer's cards
 
 	# Get total of user's hand
 	# Get total of dealer's hand
