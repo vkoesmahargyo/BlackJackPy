@@ -243,7 +243,7 @@ class Dealer():
 
 
 	def less_than_17(self, total, card_1_ace, card_2_ace):
-		if (card_1_ace == False and card_2_ace == False) or (card_1_ace == True and card_2_ace == True): # make sure no Aces or both aces
+		if (card_1_ace == False and card_2_ace == False): # make sure no Aces
 			soft_card = False
 			while True:
 				curr_card = shuffled_cards.give_one_card() # take card from deck
@@ -286,7 +286,7 @@ class Dealer():
 					total = temp_total
 				elif temp_total == 17 and soft_card: # we have a soft 17 (rare)
 					total = 7
-					total = dealer.soft_17(user_list, deck, total)
+					total = dealer.soft_17(total)
 				else: # temp_total is 17 and it is a hard 17
 					total = temp_total
 
