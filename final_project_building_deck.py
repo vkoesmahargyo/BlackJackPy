@@ -72,94 +72,94 @@ DECK_DICT = {
 
 # Player variables, atributes, and methods
 class Player(object):
-    player_hand = []
+	player_hand = []
 	hand_value = 0
 	# ace_value = 0
 	has_ace = False
-    balance = 1000
-    bet = 0
+	balance = 1000
+	bet = 0
 
-    def __init__(self, name):
-        self.name = name
+	def __init__(self, name):
+		self.name = name
 
 	# Just for troubleshooting
-    def __repr__(self):
-        return "Name: {}, Player Hand: {}, Hand Val: {}, Has Ace: {}, Balance = {}, Bet = {}". format(self.name, self.player_hand, self.hand_value, self.has_ace, self.balance, self. bet)
+	def __repr__(self):
+		return "Name: {}, Player Hand: {}, Hand Val: {}, Has Ace: {}, Balance = {}, Bet = {}". format(self.name, self.player_hand, self.hand_value, self.has_ace, self.balance, self. bet)
 
 	# prints the current balance
-    def show_balance(self):
-        print("{} currently has ${}.".format(self.name, self.balance))
+	def show_balance(self):
+		print("{} currently has ${}.".format(self.name, self.balance))
 
 	# shows what's in the player's current hand
-    def show_hand(self):
-    	to_print = []
-    	for i in range(len(player_1.player_hand)):
-        	to_print.append(player_1.player_hand[i][0])
-    	print("[" + "]  [".join(lst) + "]")
+	def show_hand(self):
+		to_print = []
+		for i in range(len(player_1.player_hand)):
+			to_print.append(player_1.player_hand[i][0])
+		print("[" + "]  [".join(lst) + "]")
 
 	# gets the player's bet
 	# THIS SHOULD MAYBE GO INTO THE GAME CODE?
-    def get_wager(self):
-        while True:
-            try:
-                wager = int(input("How much would you like to bet? (Minimum is $10)." \
+	def get_wager(self):
+		while True:
+			try:
+				wager = int(input("How much would you like to bet? (Minimum is $10)." \
                                   + "\n" + "Bet: $ "))
-                if wager < 10:
-                    print("\n" + "The minimum bet is $10.  Please try again..." + "\n")
-                    sleep(1)
-                elif wager > self.balance:
-                    print("\n" + "You cannot bet more money than you have!" \
-                    +  " You bet ${}, but you only have ${}.".format(wager, self.balance) \
-                    + " Please try again..." + "\n")
-                    sleep(1)
-                else:
-                    self.bet += wager
-                    print("\n" + ("=" * 32) + "\n" \
-                          + "Your bet for this hand is ${}.".format(self.bet) \
-                          + "\n" + ("=" * 32) + "\n")
-                    sleep(1)
-                    break
-            except:
-                print("\n" + "Your bet must be a integar number. Please try again..." + "\n")
-                sleep(1)
+				if wager < 10:
+					print("\n" + "The minimum bet is $10.  Please try again..." + "\n")
+					sleep(1)
+				elif wager > self.balance:
+					print("\n" + "You cannot bet more money than you have!" \
+					+  " You bet ${}, but you only have ${}.".format(wager, self.balance) \
+					+ " Please try again..." + "\n")
+					sleep(1)
+				else:
+					self.bet += wager
+					print("\n" + ("=" * 32) + "\n" \
+					 	+ "Your bet for this hand is ${}.".format(self.bet) \
+					 	+ "\n" + ("=" * 32) + "\n")
+					sleep(1)
+					break
+			except:
+				print("\n" + "Your bet must be a integar number. Please try again..." + "\n")
+				sleep(1)
 
 	# gets a card for the player
-    def get_card(self):
-        card_key = shuffled_cards.give_one_card()
-        hand_card = [DECK_DICT[card_key]["card"], DECK_DICT[card_key]["value"]]
-        self.player_hand.append(hand_card)
+	def get_card(self):
+		card_key = shuffled_cards.give_one_card()
+		hand_card = [DECK_DICT[card_key]["card"], DECK_DICT[card_key]["value"]]
+		self.player_hand.append(hand_card)
 
-    def check_if_ace(self):
-        if self.player_hand[len(self.player_hand)-1][0][0] == "A":
-            self.has_ace = True
+	def check_if_ace(self):
+		if self.player_hand[len(self.player_hand)-1][0][0] == "A":
+			self.has_ace = True
 
-    def set_hand_values(self):
-#         if self.has_ace == False:
-          self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
-#         elif self.has_ace == True:
-#             self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
-#             self.ace_value = self.hand_value + 10
+	def set_hand_values(self):
+		#if self.has_ace == False:
+		self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
+		#elif self.has_ace == True:
+		#self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
+		#self.ace_value = self.hand_value + 10
 
 	# doubles player's bet
-    def double_down_bet(self):
-        self.bet *= 2
-        return self.bet
+	def double_down_bet(self):
+		self.bet *= 2
+		return self.bet
 
 	"""THIS NEEDS TO BE CHANGED FOR WHATEVER VARIABLES ARE WIN LOSS!"""
     # updates the balance
-    def update_balance(self):
-        if hand_won == True:
-            self.balance += self.bet
-        elif hand_won == False:
-            self.balance -= self.bet
+	def update_balance(self):
+		if hand_won == True:
+			self.balance += self.bet
+		elif hand_won == False:
+			self.balance -= self.bet
 
 	# resets the player's hand
-    def reset_player_attr(self):
-        self.player_hand = []
-        self.hand_value = 0
-#         self.ace_value = 0
-        self.has_ace = False
-        self.bet = 0
+	def reset_player_attr(self):
+		self.player_hand = []
+		self.hand_value = 0
+		# self.ace_value = 0
+		self.has_ace = False
+		self.bet = 0
 
 
 # Card_Deck variables and methods
@@ -179,7 +179,7 @@ class Card_Deck(object):
         card = self.deck.pop()
         return card
 
-
+shuffled_cards = Card_Deck()
 # get a player name
 def get_player_name():
     while True:
@@ -323,7 +323,7 @@ class Dealer():
 			total = 7
 			return dealer.soft_17( total)
 
-	def print_dealer_cards(self, running_total, turn, user_list=user_list):
+	def print_dealer_cards(self, running_total, turn):
 		""" Print the dealer's current hand"""
 
 		if turn == True:
@@ -376,9 +376,9 @@ user_list = [
 ]
 
 # create deck to play with
-shuffled_cards = Card_Deck()
+
 # Create a Dealer
-dealer =  Dealer()
+
 
 ### START OF GAME/WHILE LOOP ###
 
@@ -420,6 +420,7 @@ while black_jack_running == True:
 	# REDUNDANT TO BELOW?
 
 	# Put tally of cards and show one of the dealer's cards
+	dealer =  Dealer()
 	dealer.get_dealer_face_up_card()
 	## Get total of player cards  - if total is 21,
 	# Ask if player wants to hit or stand
@@ -463,7 +464,7 @@ while black_jack_running == True:
 		play_again = input('Would you like to play again (yes/no)? ')
 		if play_again.lower() in "yes":
 			continue
-		elif play_again.lower() in "no"
+		elif play_again.lower() in "no":
 			print('Thanks for playing!')
 			black_jack_running = False
 			break
