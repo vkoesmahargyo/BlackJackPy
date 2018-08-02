@@ -509,7 +509,6 @@ while black_jack_running == True:
 	## Get total of player cards  - if total is 21,
 	# Ask if player wants to hit or stand
 
-<<<<<<< HEAD
 
 
 #deal cards to user
@@ -530,136 +529,6 @@ while black_jack_running == True:
 			tally(user_list[1])
 			break
 		elif hs_input.lower() in ['h', 'hit']:
-=======
-#vidya's code
-
-deck = [2, 37, 28, 47, 6, 35, 22, 44, 29, 24, 51, 23, 13, 20, 14, 48, 43, 18, 32, 7, 10, 41, 1, 19, 30, 11, 52, 5, 25, 34, 50, 12, 45, 46, 36, 8, 27, 15, 40, 16, 26, 39, 17, 3, 38, 33, 21, 31, 9, 42, 4, 49]
-
-user_list = [
-			{
-			'name': 'dealer',
-			'current_hand': []
-			},
-			{
-			'name': '',
-			'current_hand': [],
-			'total_money': 1000,
-			'current_bet': 0
-			}
-
-
-]
-
-#code
-
-
-
-
-def check_if_ace(card):
-	if len(DECK_DICT[card]['value']) == 2:
-		return True
-	else:
-		return False
-
-def shuffle_deck(deck):
-	shuffled_list = []
-	for key in deck.keys():
-		shuffled_list.append(key)
-	random.shuffle(shuffled_list)
-	return shuffled_list
-
-
-def deal_card(deck, user):
-	current_card = deck.pop()
-	return current_card
-
-def tally(user):
-	total = []
-	card1 = check_if_ace(user_list[1]['current_hand'][0])
-	card2 = check_if_ace(user_list[1]['current_hand'][1])
-	if card1 == False and card2 == False:
-		total.append(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]) #make two values anyway
-		total.append(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+DECK_DICT[user_list[1]['current_hand'][1]]['value'][0])
-	elif card1 and card2:
-		total = [2,12]
-	elif card1:
-		total = [(DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]+1),(DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]+11)]
-	elif card2:
-		total = [(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+1),(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+11)]
-	if len(user_list[1]['current_hand'])==2:
-		if total[0] == total[1]:
-			print("tally: ", total[0])
-		elif total[0]<total[1]:
-			print("your tally can be ",total[0], " or ", total[1])
-	if len(user_list[1]['current_hand'])>2:  #if more cards have been added
-		for c in new_cards:
-			if check_if_ace(c)==False:       #if the new card is NOT an ace
-				total[1]+= DECK_DICT[c]['value'][0]
-				total[0]+= DECK_DICT[c]['value'][0]
-			elif check_if_ace(c):            #if it IS an ace:
-				if card1 or card2:           #need to check if any other card is an ace
-					total[0]+= 1             #need to add corresponding ace values
-					total[1]+= 1
-				else:
-					total[0]+=1
-					total[1]+=11
-	try:
-		if total[0] > 21:
-			print('bust!')
-	except:
-		if total[1] >21:
-			print("can't use this tally: ", total[1])
-	print('tally:' ,total)
-	return total
-
-def blackjack(user):
-    if len(user_list[1]['current_hand'])==2:
-        if tally(user)==21:
-            return True
-    else:
-        False
-
-def print_hand(user):
-    for x in user_list[1]['current_hand']:
-        print('your cards: ', DECK_DICT[x]['card'])
-    return user_list[1]['current_hand']
-
-def hit(deck,user):
-		new_card = deal_card(deck, user_list[1])
-		user_list[1]['current_hand'].append(new_card)
-		return new_card
-
-new_cards= []
-deck = shuffle_deck(DECK_DICT) # deck is a list of shuffled numbers
-								#correlating to values in DECK_DICT
-print (deck)
-
-#deal cards to user
-user_list[1]['current_hand'].append(deal_card(deck,user_list[1]))
-user_list[1]['current_hand'].append(deal_card(deck,user_list[1]))
-print('first hand: ',user_list[1]['current_hand'])
-print('your hand: ', DECK_DICT[user_list[1]['current_hand'][0]]['card'], DECK_DICT[user_list[1]['current_hand'][1]]['card'])
-tally(user_list[1])
-
-#check if blackjack
-blackjack(user_list[1])
-
-
-
-while True:
-
-	#check if blackjack
-	if blackjack(user_list[1]):
-		print('blackjack!')
-		break
-	hs_input = input('Would you like to hit (h) or stand (s)?' )
-	if hs_input.lower() in ['s', 'stand']:
-		# Function for standing
-		# player cards tally
-		tally(user_list[1])
-		break
-	elif hs_input.lower() in ['h', 'hit']:
->>>>>>> 207965cc87e9b7bf563718e6a360319592328100
 			#new_cards= []
 			new_cards.append(hit(deck,user_list[1]))
 			for x in (user_list[1]['current_hand']):
@@ -675,12 +544,9 @@ while True:
 				break
 			#print('card: ', DECK_DICT[hit()]['value'])
 			print(user_list[1]['current_hand'])
-<<<<<<< HEAD
 			continue
 		else:
 			print('Please only put hit (h) or stand (s)')
-=======
->>>>>>> 207965cc87e9b7bf563718e6a360319592328100
 			continue
 	else:
 		print('Please only put hit (h) or stand (s)')
