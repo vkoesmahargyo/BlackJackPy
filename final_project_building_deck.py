@@ -95,7 +95,7 @@ class Player(object):
 		to_print = []
 		for i in range(len(player_1.player_hand)):
 			to_print.append(player_1.player_hand[i][0])
-		print("[" + "]  [".join(lst) + "]")
+		#print("[" + "]  [".join(lst) + "]")
 
 	# gets the player's bet
 	# THIS SHOULD MAYBE GO INTO THE GAME CODE?
@@ -212,6 +212,12 @@ class Dealer():
 	"""Creating the dealer in Blackjack"""
 	deck = shuffled_cards.deck
 
+	def dealer_get_initial_cards(self):
+		"""Get dealer's initial two cards"""
+		first_card = shuffled_cards.give_one_card()
+		second_card = shuffled_cards.give_one_card()
+		user_list[0]['current_hand'].append(first_card)
+		user_list[0]['current_hand'].append(second_card)
 
 	def get_dealer_face_up_card(self):
 		"""printing out only the first of dealer's cards"""
@@ -365,7 +371,7 @@ def get_outcome(dealer_final_total, player_final_total):
 user_list = [
 			{
 			'name': 'dealer',
-			'current_hand': []
+			'current_hand': [5, 6]
 			},
 			{
 			'name': '',
@@ -415,12 +421,12 @@ while black_jack_running == True:
 	""" Break to stop while loop until rest of code filled in"""
 	black_jack_running = False
 
-	# Get one dealer's card
-	# Show dealer's card here
-	# REDUNDANT TO BELOW?
+	# Create instance of Dealer
+	dealer =  Dealer()
+	# Deal out cards to dealer
+	dealer.dealer_get_initial_cards()
 
 	# Put tally of cards and show one of the dealer's cards
-	dealer =  Dealer()
 	dealer.get_dealer_face_up_card()
 	## Get total of player cards  - if total is 21,
 	# Ask if player wants to hit or stand
