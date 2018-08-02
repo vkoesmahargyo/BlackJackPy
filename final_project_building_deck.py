@@ -524,39 +524,39 @@ blackjack(user_list[1])
 
 
 
-	while True:while True:
+while True:
 
-		#check if blackjack
-		if blackjack(user_list[1]):
-			print('blackjack!')
-			break
-		hs_input = input('Would you like to hit (h) or stand (s)?' )
-		if hs_input.lower() in ['s', 'stand']:
-			# Function for standing
-			# player cards tally
-			tally(user_list[1])
-			break
-		elif hs_input.lower() in ['h', 'hit']:
-				#new_cards= []
-				new_cards.append(hit(deck,user_list[1]))
-				for x in (user_list[1]['current_hand']):
-					print('your cards now: ', DECK_DICT[x]['card'])
-				#print('new tally: ', tally(user_list[1]))
-				if tally(user_list[1])[0]>21:
-					print(tally(user_list[1])[1])
-				if tally(user_list[1])[1]>21:
-					print(tally(user_list[1])[0])
-				if tally(user_list[1])[1]>21 and tally(user_list[1])[0]>21:
-					#call dealer
-					print('you lost!')
-					break
-				#print('card: ', DECK_DICT[hit()]['value'])
-				print(user_list[1]['current_hand'])
-				continue
-		else:
-			print('Please only put hit (h) or stand (s)')
+	#check if blackjack
+	if blackjack(user_list[1]):
+		print('blackjack!')
+		break
+	hs_input = input('Would you like to hit (h) or stand (s)?' )
+	if hs_input.lower() in ['s', 'stand']:
+		# Function for standing
+		# player cards tally
+		tally(user_list[1])
+		break
+	elif hs_input.lower() in ['h', 'hit']:
+			#new_cards= []
+			new_cards.append(hit(deck,user_list[1]))
+			for x in (user_list[1]['current_hand']):
+				print('your cards now: ', DECK_DICT[x]['card'])
+			#print('new tally: ', tally(user_list[1]))
+			if tally(user_list[1])[0]>21:
+				print(tally(user_list[1])[1])
+			if tally(user_list[1])[1]>21:
+				print(tally(user_list[1])[0])
+			if tally(user_list[1])[1]>21 and tally(user_list[1])[0]>21:
+				#call dealer
+				print('you lost!')
+				break
+			#print('card: ', DECK_DICT[hit()]['value'])
+			print(user_list[1]['current_hand'])
 			continue
-		print(deck)
+	else:
+		print('Please only put hit (h) or stand (s)')
+		continue
+	print(deck)
 
 
 
