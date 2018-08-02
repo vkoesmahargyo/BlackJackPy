@@ -250,14 +250,11 @@ class Dealer():
 				user_list[0]['current_hand'].append(curr_card) # add to dealer's current hand
 				temp_total = total + DECK_DICT[curr_card]['value'][0]
 
-				if dealer.check_if_ace(curr_card) and total < 11 and total != 6: # if new card is an ace and total is less than 11 but not soft 17
+				if dealer.check_if_ace(curr_card) and total < 11: # if new card is an ace and total is less than 11 but not soft 17
 					total += 11
 					soft_card = True
 				elif dealer.check_if_ace(curr_card) and total >= 11: # if new card is an ace and total is >= 11
 					total += 1
-				elif dealer.check_if_ace(curr_card) and total == 6: # soft 17
-					total = 7
-					total = dealer.soft_17(user_list, deck, total)
 				elif soft_card == True and temp_total >= 22:
 					total = temp_total - 10
 					soft_card = False
@@ -282,11 +279,8 @@ class Dealer():
 					soft_card = False
 				elif temp_total >= 22 and soft_card == False: # dealer busts
 					total = temp_total
-				elif temp_total <= 21  and temp_total != 17: # if we have a card that doesnt bust or equal 17
+				elif temp_total <= 21: # if we have a card that doesnt bust or equal 17
 					total = temp_total
-				elif temp_total == 17 and soft_card: # we have a soft 17 (rare)
-					total = 7
-					total = dealer.soft_17(total)
 				else: # temp_total is 17 and it is a hard 17
 					total = temp_total
 
@@ -295,20 +289,6 @@ class Dealer():
 				if total >= 17:
 					break
 			return total
-	def soft_17(self, total): # note that total always = 7 at start
-		first_round = True
-		while total < 17:
-			curr_card = shuffled_cards.give_one_card()
-			user_list[0]['current_hand'].append(curr_card)
-			curr_card_value = DECK_DICT[curr_card]['value'][0]
-
-			if curr_card_value in [1, 2, 3, 4] and first_round: # since soft 17 is either 7 or 17, this will make 18 to 21 only in first round
-				total = 17 + curr_card_value # started off with total = 7, change back to 17
-			else:
-				first_round = False
-				total += curr_card_value
-			dealer.print_dealer_cards(turn=False, running_total=total) # print dealer cards after getting next card
-		return total
 
 
 	def dealer_cards_check_total(self):
@@ -317,13 +297,11 @@ class Dealer():
 		dealer.print_dealer_cards(running_total=total, turn = True) # Initial print out of dealer's 2 cards
 		if total > 17 :
 			return total
-		elif total < 17:
+		elif total <= 17:
 			return dealer.less_than_17(total, card_1_ace, card_2_ace)
 		elif total == 17 and card_1_ace == False and card_2_ace == False: # total is hard 17
 			return total
-		else: # soft 17
-			total = 7
-			return dealer.soft_17( total)
+
 
 	def print_dealer_cards(self, running_total, turn):
 		""" Print the dealer's current hand"""
