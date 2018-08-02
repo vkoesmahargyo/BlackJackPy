@@ -95,7 +95,7 @@ class Player(object):
 		to_print = []
 		for i in range(len(player_1.player_hand)):
 			to_print.append(player_1.player_hand[i][0])
-		print("[" + "]  [".join(to_print) + "]")
+		return ("[" + "]  [".join(to_print) + "]")
 
 	# gets the player's bet
 	# THIS SHOULD MAYBE GO INTO THE GAME CODE?
@@ -176,6 +176,8 @@ class Card_Deck(object):
         return card
 
 shuffled_cards = Card_Deck()
+
+
 # get a player name
 def get_player_name():
     while True:
@@ -443,12 +445,10 @@ while black_jack_running == True:
 	# Dealer gets one or more cards
 
 	# Show dealer cards
-	# Do we want to do this one card at a time?
 	dealer_final_total= dealer_cards_check_total() # will give us the dealer's cards
 
 	# Get total of user's hand
 	# Get total of dealer's hand
-
 	#  Compare and determine winner
 
 	# show outcome - win/lose
