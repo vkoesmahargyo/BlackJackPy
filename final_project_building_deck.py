@@ -72,59 +72,60 @@ DECK_DICT = {
 
 # Player variables, atributes, and methods
 class Player(object):
-    player_hand = []
+	player_hand = []
 	hand_value = 0
 	has_ace = False
-    balance = 1000
-    bet = 0
+	balance = 1000
+	bet = 0
 
-    def __init__(self, name):
-        self.name = name
+	def __init__(self, name):
+		self.name = name
 
 	# Returns all player attributes
 	# Just for troubleshooting
-    def __repr__(self):
-        return "Name: {}, Player Hand: {}, Hand Val: {}, Has Ace: {}, Balance = {}, Bet = {}". format(self.name, self.player_hand, self.hand_value, self.has_ace, self.balance, self. bet)
+	def __repr__(self):
+		return "Name: {}, Player Hand: {}, Hand Val: {}, Has Ace: {}, Balance = {}, Bet = {}". format(self.name, self.player_hand, self.hand_value, self.has_ace, self.balance, self. bet)
 
 	# prints the current balance
-    def show_balance(self):
-        print("{} currently has ${}.".format(self.name, self.balance))
+	def show_balance(self):
+		print("{} currently has ${}.".format(self.name, self.balance))
 
 	# shows what's in the player's current hand
-    def show_hand(self):
-    	to_print = []
-    	for i in range(len(player_1.player_hand)):
-        	to_print.append(player_1.player_hand[i][0])
-    	print("[" + "]  [".join(lst) + "]")
+	def show_hand(self):
+		to_print = []
+		for i in range(len(player_1.player_hand)):
+			to_print.append(player_1.player_hand[i][0])
+		print("[" + "]  [".join(lst) + "]")
 
 	# gets the player's bet
 	# THIS SHOULD MAYBE GO INTO THE GAME CODE?
-    def get_wager(self):
-        while True:
-            try:
-                wager = int(input("How much would you like to bet? (Minimum is $10)." \
+	def get_wager(self):
+		while True:
+			try:
+				wager = int(input("How much would you like to bet? (Minimum is $10)." \
                                   + "\n" + "Bet: $ "))
-                if wager < 10:
-                    print("\n" + "The minimum bet is $10.  Please try again..." + "\n")
-                    sleep(1)
-                elif wager > self.balance:
-                    print("\n" + "You cannot bet more money than you have!" \
-                    +  " You bet ${}, but you only have ${}.".format(wager, self.balance) \
-                    + " Please try again..." + "\n")
-                    sleep(1)
-                else:
-                    self.bet += wager
-                    print("\n" + ("=" * 32) + "\n" \
-                          + "Your bet for this hand is ${}.".format(self.bet) \
-                          + "\n" + ("=" * 32) + "\n")
-                    sleep(1)
-                    break
-            except:
-                print("\n" + "Your bet must be a integar number. Please try again..." + "\n")
-                sleep(1)
+				if wager < 10:
+					print("\n" + "The minimum bet is $10.  Please try again..." + "\n")
+					sleep(1)
+				elif wager > self.balance:
+					print("\n" + "You cannot bet more money than you have!" \
+					+  " You bet ${}, but you only have ${}.".format(wager, self.balance) \
+					+ " Please try again..." + "\n")
+					sleep(1)
+				else:
+					self.bet += wager
+					print("\n" + ("=" * 32) + "\n" \
+					 	+ "Your bet for this hand is ${}.".format(self.bet) \
+					 	+ "\n" + ("=" * 32) + "\n")
+					sleep(1)
+					break
+			except:
+				print("\n" + "Your bet must be a integar number. Please try again..." + "\n")
+				sleep(1)
 
 	# gets a card for the player
 	def get_card(self):
+<<<<<<< HEAD
     	card_key = shuffled_cards.give_one_card()
         hand_card = [DECK_DICT[card_key]["card"], DECK_DICT[card_key]["value"]]
         self.player_hand.append(hand_card)
@@ -136,15 +137,32 @@ class Player(object):
 	# add card value to hand value
     def set_hand_values(self):
 		self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
+=======
+		card_key = shuffled_cards.give_one_card()
+		hand_card = [DECK_DICT[card_key]["card"], DECK_DICT[card_key]["value"]]
+		self.player_hand.append(hand_card)
+
+	def check_if_ace(self):
+		if self.player_hand[len(self.player_hand)-1][0][0] == "A":
+			self.has_ace = True
+
+	def set_hand_values(self):
+		#if self.has_ace == False:
+		self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
+		#elif self.has_ace == True:
+		#self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
+		#self.ace_value = self.hand_value + 10
+>>>>>>> ef8865a0400db008f1eb9eff098ec2cf319646ae
 
 	# doubles player's bet
-    def double_down_bet(self):
-        self.bet *= 2
-        return self.bet
+	def double_down_bet(self):
+		self.bet *= 2
+		return self.bet
 
 	"""THIS NEEDS TO BE CHANGED FOR WHATEVER VARIABLES ARE WIN LOSS!"""
     # updates the balance
 	def update_balance(self):
+<<<<<<< HEAD
         if hand_won == True:
             self.balance += self.bet
         elif hand_won == False:
@@ -156,6 +174,20 @@ class Player(object):
         self.hand_value = 0
         self.has_ace = False
         self.bet = 0
+=======
+		if hand_won == True:
+			self.balance += self.bet
+		elif hand_won == False:
+			self.balance -= self.bet
+
+	# resets the player's hand
+	def reset_player_attr(self):
+		self.player_hand = []
+		self.hand_value = 0
+		# self.ace_value = 0
+		self.has_ace = False
+		self.bet = 0
+>>>>>>> ef8865a0400db008f1eb9eff098ec2cf319646ae
 
 
 # Card_Deck variables and methods
@@ -175,7 +207,7 @@ class Card_Deck(object):
         card = self.deck.pop()
         return card
 
-
+shuffled_cards = Card_Deck()
 # get a player name
 def get_player_name():
     while True:
@@ -204,145 +236,143 @@ def instructions():
 
 
 ##### DEALER FUNCTIONS #####
-def get_dealer_face_up_card(user_list, deck):
-	"""Used only in the beginning of the game to get one of the dealer's cards."""
-	print('Dealer:\t', DECK_DICT[user_list[0]['current_hand'][0]]['card']) # printing out only the first of dealer's cards
+class Dealer():
+	"""Creating the dealer in Blackjack"""
+	deck = shuffled_cards.deck
 
 
-def get_dealer_two_card_sum(user_list, deck):
-	"""Getting sum of dealer's two cards, and returning their total along with
-	length of the first and second card (to check which is an ace)."""
-	total = 0
-	card_1_ace = check_if_ace(user_list[0]['current_hand'][0])
-	card_2_ace = check_if_ace(user_list[0]['current_hand'][1])
-	if card_1_ace == False and card_2_ace == False: # neither is an ace
-		total += DECK_DICT[user_list[0]['current_hand'][0]]['value'][0] + DECK_DICT[user_list[0]['current_hand'][1]]['value'][0] # sum of both cards
-	elif card_1_ace == True and card_2_ace == True: # both are aces - very rare
-		total = 12
-	elif card_1_ace == True: # card 1 is an Ace
-		total += DECK_DICT[user_list[0]['current_hand'][0]]['value'][1] + DECK_DICT[user_list[0]['current_hand'][1]]['value'][0] # sum of both cards (where first is Ace = 11)
-	elif card_2_ace == True: # card 2 is an Ace
-		total += DECK_DICT[user_list[0]['current_hand'][0]]['value'][0] + DECK_DICT[user_list[0]['current_hand'][1]]['value'][1] # sum of both cards (where second is Ace = 11)
+	def get_dealer_face_up_card(self):
+		"""printing out only the first of dealer's cards"""
+		print('Dealer:\t', DECK_DICT[user_list[0]['current_hand'][0]]['card'])
 
-	return total, card_1_ace, card_2_ace
+	def get_dealer_two_card_sum(self):
+		"""Getting sum of dealer's two cards, and returning their total along with
+		length of the first and second card (to check which is an ace)."""
+		total = 0
+		card_1_ace = dealer.check_if_ace(user_list[0]['current_hand'][0])
+		card_2_ace = dealer.check_if_ace(user_list[0]['current_hand'][1])
+		if card_1_ace == False and card_2_ace == False: # neither is an ace
+			total += DECK_DICT[user_list[0]['current_hand'][0]]['value'][0] + DECK_DICT[user_list[0]['current_hand'][1]]['value'][0] # sum of both cards
+		elif card_1_ace == True and card_2_ace == True: # both are aces - very rare
+			total = 12
+		elif card_1_ace == True: # card 1 is an Ace
+			total += DECK_DICT[user_list[0]['current_hand'][0]]['value'][1] + DECK_DICT[user_list[0]['current_hand'][1]]['value'][0] # sum of both cards (where first is Ace = 11)
+		elif card_2_ace == True: # card 2 is an Ace
+			total += DECK_DICT[user_list[0]['current_hand'][0]]['value'][0] + DECK_DICT[user_list[0]['current_hand'][1]]['value'][1] # sum of both cards (where second is Ace = 11)
+		return total, card_1_ace, card_2_ace
 
-def check_if_ace(card):
-	"""just checking if current card is an ace. This is to save on
-	code redundancy (since we have to check if it is an ace often)."""
-	if len(DECK_DICT[card]['value']) == 2:
-		return True
-	else:
-		return False
-
-def less_than_17(user_list, deck, total, card_1_ace, card_2_ace):
-	if (card_1_ace == False and card_2_ace == False) or (card_1_ace == True and card_2_ace == True): # make sure no Aces or both aces
-		soft_card = False
-		while True:
-			curr_card = deck.pop() # take card from deck
-			user_list[0]['current_hand'].append(curr_card) # add to dealer's current hand
-			temp_total = total + DECK_DICT[curr_card]['value'][0]
-
-			if check_if_ace(curr_card) and total < 11 and total != 6: # if new card is an ace and total is less than 11 but not soft 17
-				total += 11
-				soft_card = True
-			elif check_if_ace(curr_card) and total >= 11: # if new card is an ace and total is >= 11
-				total += 1
-			elif check_if_ace(curr_card) and total == 6: # soft 17
-				total = 7
-				total = soft_17(user_list, deck, total)
-			elif soft_card == True and temp_total >= 22:
-				total = temp_total - 10
-				soft_card = False
-			else:
-				total += DECK_DICT[curr_card]['value'][0]
-
-			print_dealer_cards(running_total=total, turn=False) # print dealer cards after getting next card
-
-			if total >= 17:
-				break
-		return total
-	else:	# if ace exists in ONE of dealer's first two cards
-		soft_card = True # assume it is a 'soft hand' (since it is either A2, A3, A4, or A5)
-		while True:
-			curr_card = deck.pop() # take card from deck
-			user_list[0]['current_hand'].append(curr_card) # add to dealer's current hand
-			curr_card_value = DECK_DICT[curr_card]['value'][0] # Ace will always = 1 in this case
-			temp_total = total + curr_card_value
-
-			if temp_total >= 22 and soft_card: # check if dealer busts with soft hand
-				total = temp_total - 10 # we previously assumed Ace is 11, this brings it back down by 10 so A = 1
-				soft_card = False
-			elif temp_total >= 22 and soft_card == False: # dealer busts
-				total = temp_total
-			elif temp_total <= 21  and temp_total != 17: # if we have a card that doesnt bust or equal 17
-				total = temp_total
-			elif temp_total == 17 and soft_card: # we have a soft 17 (rare)
-				total = 7
-				total = soft_17(user_list, deck, total)
-			else: # temp_total is 17 and it is a hard 17
-				total = temp_total
-			print_dealer_cards(running_total=total, turn=False) # print dealer cards after getting next card
-
-			if total >= 17:
-				break
-		return total
-
-def soft_17(user_list, deck, total): # note that total always = 7 at start
-	"""This will resolve soft 17 dealer card. """
-	first_round = True
-	while total < 17:
-		curr_card = deck.pop()
-		user_list[0]['current_hand'].append(curr_card)
-		curr_card_value = DECK_DICT[curr_card]['value'][0]
-
-		if curr_card_value in [1, 2, 3, 4] and first_round: # since soft 17 is either 7 or 17, this will make 18 to 21 only in first round
-			total = 17 + curr_card_value
+	def check_if_ace(self, card):
+		if len(DECK_DICT[card]['value']) == 2:
+			return True
 		else:
-			first_round = False
-			total += curr_card_value
-		print_dealer_cards(turn=False, running_total=total) # print dealer cards after getting next card
-	return total
+			return False
 
-def dealer_cards_check_total(user_list, deck):
-	"""This will see if total is soft 17, >= hard 17, or less than 17 """
-	total, card_1_ace, card_2_ace = get_dealer_two_card_sum(user_list, deck) # getting sum of first 2 cards in dealer's hand
-	print(print_dealer_cards(running_total=total, turn=True)) # Initial print out of dealer's 2 cards
-	if total > 17 :
+
+	def less_than_17(self, total, card_1_ace, card_2_ace):
+		if (card_1_ace == False and card_2_ace == False) or (card_1_ace == True and card_2_ace == True): # make sure no Aces or both aces
+			soft_card = False
+			while True:
+				curr_card = shuffled_cards.give_one_card() # take card from deck
+				user_list[0]['current_hand'].append(curr_card) # add to dealer's current hand
+				temp_total = total + DECK_DICT[curr_card]['value'][0]
+
+				if dealer.check_if_ace(curr_card) and total < 11 and total != 6: # if new card is an ace and total is less than 11 but not soft 17
+					total += 11
+					soft_card = True
+				elif dealer.check_if_ace(curr_card) and total >= 11: # if new card is an ace and total is >= 11
+					total += 1
+				elif dealer.check_if_ace(curr_card) and total == 6: # soft 17
+					total = 7
+					total = dealer.soft_17(user_list, deck, total)
+				elif soft_card == True and temp_total >= 22:
+					total = temp_total - 10
+					soft_card = False
+				else:
+					total += DECK_DICT[curr_card]['value'][0]
+
+				dealer.print_dealer_cards(running_total=total, turn=False) # print dealer cards after getting next card
+
+				if total >= 17:
+					break
+			return total
+		else:	# if ace exists in ONE of dealer's first two cards
+			soft_card = True # assume it is a 'soft hand' (since it is either A2, A3, A4, or A5)
+			while True:
+				curr_card = shuffled_cards.give_one_card() # take card from deck
+				user_list[0]['current_hand'].append(curr_card) # add to dealer's current hand
+				curr_card_value = DECK_DICT[curr_card]['value'][0] # Ace will always = 1 in this case
+				temp_total = total + curr_card_value
+
+				if temp_total >= 22 and soft_card: # check if dealer busts with soft hand
+					total = temp_total - 10 # we previously assumed Ace is 11, this brings it back down by 10 so A = 1
+					soft_card = False
+				elif temp_total >= 22 and soft_card == False: # dealer busts
+					total = temp_total
+				elif temp_total <= 21  and temp_total != 17: # if we have a card that doesnt bust or equal 17
+					total = temp_total
+				elif temp_total == 17 and soft_card: # we have a soft 17 (rare)
+					total = 7
+					total = dealer.soft_17(user_list, deck, total)
+				else: # temp_total is 17 and it is a hard 17
+					total = temp_total
+
+				dealer.print_dealer_cards(turn = False, running_total=total) # print dealer cards after getting next card
+
+				if total >= 17:
+					break
+			return total
+	def soft_17(self, total): # note that total always = 7 at start
+		first_round = True
+		while total < 17:
+			curr_card = shuffled_cards.give_one_card()
+			user_list[0]['current_hand'].append(curr_card)
+			curr_card_value = DECK_DICT[curr_card]['value'][0]
+
+			if curr_card_value in [1, 2, 3, 4] and first_round: # since soft 17 is either 7 or 17, this will make 18 to 21 only in first round
+				total = 17 + curr_card_value # started off with total = 7, change back to 17
+			else:
+				first_round = False
+				total += curr_card_value
+			dealer.print_dealer_cards(turn=False, running_total=total) # print dealer cards after getting next card
 		return total
-	elif total < 17:
-		return less_than_17(user_list, deck, total, card_1_ace, card_2_ace)
-	elif total == 17 and card_1_ace == False and card_2_ace == False: # total is hard 17
-		return total
-	else: # soft 17
-		total = 7
-		return soft_17(user_list, deck, total)
 
 
+	def dealer_cards_check_total(self):
+		"""This will see if total is soft 17, >= hard 17, or less than 17 """
+		total, card_1_ace, card_2_ace = dealer.get_dealer_two_card_sum() # getting sum of first 2 cards in dealer's hand
+		dealer.print_dealer_cards(running_total=total, turn = True) # Initial print out of dealer's 2 cards
+		if total > 17 :
+			return total
+		elif total < 17:
+			return dealer.less_than_17(total, card_1_ace, card_2_ace)
+		elif total == 17 and card_1_ace == False and card_2_ace == False: # total is hard 17
+			return total
+		else: # soft 17
+			total = 7
+			return dealer.soft_17( total)
 
-## dealer_cards_check_total is the main function here.
+	def print_dealer_cards(self, running_total, turn):
+		""" Print the dealer's current hand"""
 
-def print_dealer_cards(running_total, turn, user_list=user_list):
-	""" Print the dealer's current hand"""
+		if turn == True:
+			print('Dealer\'s Hand:\n-----------\n') # header
+			for card in user_list[0]['current_hand']:
+	 			print(DECK_DICT[card]['card'])
+	 			turn = False
+	 			sleep(1)
+			print('Calculating...')
+			sleep(1)
+			print('\n\tTotal: ', running_total)
+			sleep(1)
 
-	if turn == True:
-		print('Dealer\'s Hand:\n-----------\n') # header
-		for card in user_list[0]['current_hand']:
-	 		print(DECK_DICT[card]['card'])
-	 		turn = False
-	 		sleep(1)
-		print('Calculating...')
-		sleep(1)
-		print('\n\tTotal: ', running_total)
-		sleep(1)
-
-	else:
-		#for card in range(2, len(user_list[0]['current_hand'])):
-		print(DECK_DICT[user_list[0]['current_hand'][-1]]['card'])
-		sleep(1)
-		print('Calculating...')
-		sleep(1)
-		print('\n\tTotal: ', running_total)
-		sleep(1)
+		else:
+			#for card in range(2, len(user_list[0]['current_hand'])):
+			print(DECK_DICT[user_list[0]['current_hand'][-1]]['card'])
+			sleep(1)
+			print('Calculating...')
+			sleep(1)
+			print('\n\tTotal: ', running_total)
+			sleep(1)
 
 
 
@@ -374,7 +404,8 @@ user_list = [
 ]
 
 # create deck to play with
-shuffled_cards = Card_Deck()
+
+# Create a Dealer
 
 
 ### START OF GAME/WHILE LOOP ###
@@ -417,7 +448,8 @@ while black_jack_running == True:
 	# REDUNDANT TO BELOW?
 
 	# Put tally of cards and show one of the dealer's cards
-	get_dealer_face_up_card(user_list, shuffled_cards.deck)
+	dealer =  Dealer()
+	dealer.get_dealer_face_up_card()
 	## Get total of player cards  - if total is 21,
 	# Ask if player wants to hit or stand
 	while True:
@@ -438,7 +470,7 @@ while black_jack_running == True:
 
 	# Show dealer cards
 	# Do we want to do this one card at a time?
-	dealer_final_total= dealer_cards_check_total(user_list, shuffled_cards.deck) # will give us the dealer's cards
+	dealer_final_total= dealer_cards_check_total() # will give us the dealer's cards
 
 	# Get total of user's hand
 	# Get total of dealer's hand
@@ -447,7 +479,7 @@ while black_jack_running == True:
 
 	# show outcome - win/lose
 
-	get_outcome(dealer_final_total, player_final_total)
+	#get_outcome(dealer_final_total, player_final_total)
 
 	# Adjust player balance (money)
 	player_1.update_balance()
@@ -460,7 +492,7 @@ while black_jack_running == True:
 		play_again = input('Would you like to play again (yes/no)? ')
 		if play_again.lower() in "yes":
 			continue
-		elif play_again.lower() in "no"
+		elif play_again.lower() in "no":
 			print('Thanks for playing!')
 			black_jack_running = False
 			break
