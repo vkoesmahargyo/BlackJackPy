@@ -74,7 +74,6 @@ DECK_DICT = {
 class Player(object):
     player_hand = []
 	hand_value = 0
-	# ace_value = 0
 	has_ace = False
     balance = 1000
     bet = 0
@@ -82,6 +81,7 @@ class Player(object):
     def __init__(self, name):
         self.name = name
 
+	# Returns all player attributes
 	# Just for troubleshooting
     def __repr__(self):
         return "Name: {}, Player Hand: {}, Hand Val: {}, Has Ace: {}, Balance = {}, Bet = {}". format(self.name, self.player_hand, self.hand_value, self.has_ace, self.balance, self. bet)
@@ -124,21 +124,18 @@ class Player(object):
                 sleep(1)
 
 	# gets a card for the player
-    def get_card(self):
-        card_key = shuffled_cards.give_one_card()
+	def get_card(self):
+    	card_key = shuffled_cards.give_one_card()
         hand_card = [DECK_DICT[card_key]["card"], DECK_DICT[card_key]["value"]]
         self.player_hand.append(hand_card)
 
+	# check if card is ace
     def check_if_ace(self):
         if self.player_hand[len(self.player_hand)-1][0][0] == "A":
             self.has_ace = True
-
+	# add card value to hand value
     def set_hand_values(self):
-#         if self.has_ace == False:
-          self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
-#         elif self.has_ace == True:
-#             self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
-#             self.ace_value = self.hand_value + 10
+		self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
 
 	# doubles player's bet
     def double_down_bet(self):
@@ -147,17 +144,16 @@ class Player(object):
 
 	"""THIS NEEDS TO BE CHANGED FOR WHATEVER VARIABLES ARE WIN LOSS!"""
     # updates the balance
-    def update_balance(self):
+	def update_balance(self):
         if hand_won == True:
             self.balance += self.bet
         elif hand_won == False:
             self.balance -= self.bet
 
 	# resets the player's hand
-    def reset_player_attr(self):
+	def reset_player_attr(self):
         self.player_hand = []
         self.hand_value = 0
-#         self.ace_value = 0
         self.has_ace = False
         self.bet = 0
 
@@ -351,7 +347,7 @@ def print_dealer_cards(running_total, turn, user_list=user_list):
 
 
 def get_outcome(dealer_final_total, player_final_total):
-	#player_final_total = 17
+#player_final_total = 17
 	print('FINAL OUTCOME\n-----------')
 	if dealer_final_total > 21:
 		print('Dealer busts! You win.')
@@ -393,7 +389,7 @@ black_jack_running = True
 
 # Start the game while loop!
 while black_jack_running == True:
-	
+
 	# Get new deck and shuffle
 	shuffled_cards.new_deck()
 	shuffled_cards.shuffle()
