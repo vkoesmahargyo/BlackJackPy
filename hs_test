@@ -1,0 +1,235 @@
+DECK_DICT = {
+				1: {'card': 'A ♣', 'value': [1, 11]},
+				2: {'card': '2 ♥', 'value': [2]},
+				3: {'card': '3 ♦', 'value': [3]},
+				4: {'card': '4 ♠', 'value': [4]},
+				5: {'card': '5 ♣', 'value': [5]},
+				6: {'card': '6 ♥', 'value': [6]},
+				7: {'card': '7 ♦', 'value': [7]},
+				8: {'card': '8 ♠', 'value': [8]},
+				9: {'card': '9 ♣', 'value': [9]},
+				10: {'card': '10 ♥', 'value': [10]},
+				11: {'card': 'J ♦', 'value': [10]},
+				12: {'card': 'Q ♠', 'value': [10]},
+				13: {'card': 'K ♣', 'value': [10]},
+				14: {'card': 'A ♥', 'value': [1, 11]},
+				15: {'card': '2 ♦', 'value': [2]},
+				16: {'card': '3 ♠', 'value': [3]},
+				17: {'card': '4 ♣', 'value': [4]},
+				18: {'card': '5 ♥', 'value': [5]},
+				19: {'card': '6 ♦', 'value': [6]},
+				20: {'card': '7 ♠', 'value': [7]},
+				21: {'card': '8 ♣', 'value': [8]},
+				22: {'card': '9 ♥', 'value': [9]},
+				23: {'card': '10 ♦', 'value': [10]},
+				24: {'card': 'J ♠', 'value': [10]},
+				25: {'card': 'Q ♣', 'value': [10]},
+				26: {'card': 'K ♥', 'value': [10]},
+				27: {'card': 'A ♦', 'value': [1, 11]},
+				28: {'card': '2 ♠', 'value': [2]},
+				29: {'card': '3 ♣', 'value': [3]},
+				30: {'card': '4 ♥', 'value': [4]},
+				31: {'card': '5 ♦', 'value': [5]},
+				32: {'card': '6 ♠', 'value': [6]},
+				33: {'card': '7 ♣', 'value': [7]},
+				34: {'card': '8 ♥', 'value': [8]},
+				35: {'card': '9 ♦', 'value': [9]},
+				36: {'card': '10 ♠', 'value': [10]},
+				37: {'card': 'J ♣', 'value': [10]},
+				38: {'card': 'Q ♥', 'value': [10]},
+				39: {'card': 'K ♦', 'value': [10]},
+				40: {'card': 'A ♠', 'value': [1, 11]},
+				41: {'card': '2 ♣', 'value': [2]},
+				42: {'card': '3 ♥', 'value': [3]},
+				43: {'card': '4 ♦', 'value': [4]},
+				44: {'card': '5 ♠', 'value': [5]},
+				45: {'card': '6 ♣', 'value': [6]},
+				46: {'card': '7 ♥', 'value': [7]},
+				47: {'card': '8 ♦', 'value': [8]},
+				48: {'card': '9 ♠', 'value': [9]},
+				49: {'card': '10 ♣', 'value': [10]},
+				50: {'card': 'J ♥', 'value': [10]},
+				51: {'card': 'Q ♦', 'value': [10]},
+				52: {'card': 'K ♠', 'value': [10]}}
+# a = DECK_DICT[52]['value']
+
+# print('a: ',a)
+
+
+user_list = [
+			{
+			'name': 'dealer',
+			'current_hand': []
+			},
+			{
+			'name': '',
+			'current_hand': [],
+			'total_money': 1000,
+			'current_bet': 0
+			}
+
+
+]
+
+def shuffle_deck(deck):
+	shuffled_list = []
+	for key in deck.keys():
+		shuffled_list.append(key)
+	random.shuffle(shuffled_list)
+	return shuffled_list
+
+
+def deal_card(deck, user):
+	current_card = deck.pop()
+	return current_card
+
+
+def instructions():
+	rules = """The point of the game is to beat the dealer's hand without
+			going over 21. You will be dealt 2 cards, as will the dealer
+			but only one of the dealer's cards will be shown. You can choose
+			to stand (s) - stop being dealt cards, or hit (h) - continue
+			to be dealth cards. All face cards are worth 10, an Ace can be
+			either 1 or 11.
+			The Dealer must continue to take cards until they are above 17.
+			To quit at any time, press 'q'.
+			[WILL ADD BETTING STUFF LATER]
+			"""
+	return rules
+
+def place_bet(user_list):
+	pass
+
+print("Welcome to Blackjack!\n",instructions())
+
+
+user_name = input("\nPlease enter your name: ")
+if len(user_list) > 2:
+	pass # For more than one user
+else:
+	user_list[1]['name'] = user_name
+
+while True:
+
+	deck = shuffle_deck(DECK_DICT) # deck is a list of shuffled numbers
+								#correlating to values in DECK_DICT
+	print (deck)
+	place_bet(user_list) # will prompt user to choose betting amount (or quit)
+	if place_bet == 'q':
+		break
+
+	# Place deal card function here #
+	card1 = deal_card(deck,user_list[1])
+	card2 = deal_card(deck,user_list[1])
+	#appending to user_list current hand
+	user_list[1]['current_hand'].append(card1)
+	user_list[1]['current_hand'].append(card2)
+	print(user_list[1])
+
+
+# 	b = user_list[1]['current_hand'][0]
+# 	print('b :',b)
+# 	c = DECK_DICT[b]['value'][0]
+# 	print('c :',c, type(c))
+
+
+	# Put tally of cards and show one of the dealer's cards
+	def tally(user):
+		for x in user_list[1]['current_hand']:
+			#if aces are present, two different values
+			tally += user_list['current_hand'][x]
+		return tally
+
+# 	def first_tally(user):
+# 		tally = 0
+# 		card1 = DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]
+# 		card2 = DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]
+#         try:
+#             ace1 = DECK_DICT[user_list[1]['current_hand'][0]]['value'][1]
+#             ace2 = DECK_DICT[user_list[1]['current_hand'][1]]['value'][1]
+#             if card1 == 11 and card2 == 11:
+#                 tally = 12
+#             elif card1 == 11:
+#                 total += DECK_DICT[user_list[1]['current_hand'][1]]['value'][1] + card1
+#             elif card2 == 11:
+#                 total += DECK_DICT[user_list[1]['current_hand'][0]]['value'][0] + card2
+#         except:
+
+
+
+
+
+# 	c1 = DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]
+# 	c2 = DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]
+# 	print(c1)
+# 	print(c2)
+
+# def user_firsttally(user, deck):
+# 	total = 0
+# 	card1_len = len(DECK_DICT[user_list[1]['current_hand'][0]]['value'])
+# 	card2_len = len(DECK_DICT[user_list[1]['current_hand'][1]]['value'])
+# 	if card1_len != 2 and card_2_len != 2: #neither is an ace
+# 		total += DECK_DICT[user_list[1]['current_hand'][0]]['value'][0] + DECK_DICT[user_list[1]['current_hand'][1]]['value'][0] # sum of both cards
+# 	elif card1_len == 2 and card_2_len == 2: # both are aces
+# 		total = 12
+# 	elif card1_len == 2: # card1 is an Ace
+# 		total += DECK_DICT[user_list[1]['current_hand'][0]]['value'][1] + DECK_DICT[user_list[1]['current_hand'][1]]['value'][0] # sum of both cards (where first is Ace = 11)
+# 	elif card2_len == 2: # card2 is an Ace
+# 		total += DECK_DICT[user_list[1]['current_hand'][0]]['value'][0] + DECK_DICT[user_list[1]['current_hand'][1]]['value'][1] # sum of both cards (where second is Ace = 11)
+# 	return total
+
+	#defining first_tally
+	def first_tally():
+		f_tally=0
+		card1_lst = len(DECK_DICT[user_list[1]['current_hand'][0]]['value'])
+		card2_lst = len(DECK_DICT[user_list[1]['current_hand'][0]]['value'])
+		if card1_lst != 2 and card2_lst != 2:
+			f_tally= DECK_DICT[user_list[1]['current_hand'][0]]['value'][0] + DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]
+		elif card1_lst == 2 and card2_lst == 2:
+			f_tally = 12
+		elif card1_lst == 2:
+			f_tally = DECK_DICT[user_list[1]['current_hand'][0]]['value'][1] + DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]
+		elif card2_lst == 2:
+			f_tally = DECK_DICT[user_list[1]['current_hand'][0]]['value'][0] + DECK_DICT[user_list[1]['current_hand'][1]]['value'][1]
+		return f_tally
+	print('first tally: ',first_tally())
+	tally = first_tally()
+# 	def tally(card):
+# 		tally += card
+# 		return tally
+
+	#defining function for hitting
+	def hit():
+		return deal_card(deck, user_list[1])
+
+	while True:
+		hs_input = input('Would you like to hit (h) or stand (s)?' )
+		if hs_input.lower() in ['s', 'stand']:
+			# Function for standing
+			# player cards tally
+			# call dealer Function
+
+			break
+		elif hs_input.lower() in ['h', 'hit']:
+			#while first_tally() <21:
+				new_card = hit()
+				new_value = DECK_DICT[new_card]['value'][0]
+				user_list[1]['current_hand'].append(new_card)
+				tally = first_tally()
+				tally += new_value
+				print('hand: ',user_list[1]['current_hand'])
+				print('tally: ',tally)
+				print('deck: ',deck)
+				#code for aces when tallying
+				pass
+		else:
+			print('Please only put hit (h) or stand (s)')
+			continue
+	print(deck)
+
+	play_again = input('Would you like to play again (yes/no)? ')
+	if play_again == 'y' or play_again == 'yes':
+		continue
+	else:
+		print('Thanks for playing!')
+		break
