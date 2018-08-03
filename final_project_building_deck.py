@@ -75,6 +75,7 @@ DECK_DICT = {
 class Player(object):
 	player_hand = []
 	hand_value = 0
+	ace_value = 0
 	has_ace = False
 	balance = 1000
 	bet = 0
@@ -97,7 +98,7 @@ class Player(object):
 		to_print = []
 		for i in range(len(player_1.player_hand)):
 			to_print.append(player_1.player_hand[i][0])
-		print("[" + "]  [".join(to_print) + "]")
+		return ("[" + "]  [".join(to_print) + "]")
 
 	def get_wager(self):
 		"""Gets the player's bet"""
@@ -137,7 +138,9 @@ class Player(object):
 
 	def set_hand_values(self):
 		"""Add card value to hand value"""
-		self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
+		if self.has_ace == True:
+			self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
+			self.ace_value = self.hand_value + 10
 
 	def double_down_bet(self):
 		"""Doubles the player's bet for doubling down """
@@ -400,6 +403,7 @@ def deal_card(deck, user):
 	current_card = shuffled_cards.give_one_card()
 	return current_card
 
+<<<<<<< HEAD
 def tally(user):
 	total = []
 	# card1 = check_if_ace(user_list[1]['current_hand'][0])
@@ -439,6 +443,8 @@ def tally(user):
 	print('tally:' ,total)
 	return total
 
+=======
+>>>>>>> b8618267b54151a55e68fbf82499ff72059c23c3
 def blackjack(user):
 	if len(user_list[1]['current_hand'])==2:
 		if tally(user)==21:
