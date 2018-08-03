@@ -79,15 +79,13 @@ class Player(object):
 	has_ace = False
 	balance = 1000
 	bet = 0
+	won_hand = False
 
 	def __init__(self, name):
 		self.name = name
 
-	# Returns all player attributes
-	# Just for troubleshooting
 	def __repr__(self):
 		return "Name: {}, Player Hand: {}, Hand Val: {}, Has Ace: {}, Balance = {}, Bet = {}". format(self.name, self.player_hand, self.hand_value, self.has_ace, self.balance, self. bet)
-
 
 	def show_balance(self):
 		"""Prints the current balance """
@@ -98,7 +96,7 @@ class Player(object):
 		to_print = []
 		for i in range(len(player_1.player_hand)):
 			to_print.append(player_1.player_hand[i][0])
-		return ("[" + "]  [".join(to_print) + "]")
+		print(player_1.name+ ": [" + "]  [".join(to_print) + "]")
 
 	def get_wager(self):
 		"""Gets the player's bet"""
@@ -149,12 +147,11 @@ class Player(object):
 		self.bet *= 2
 		return self.bet
 
-	"""THIS NEEDS TO BE CHANGED FOR WHATEVER VARIABLES ARE WIN LOSS!"""
 	def update_balance(self):
 		"""Updates the balance """
-		if hand_won == True:
+		if self.won_hand == True:
 			self.balance += self.bet
-		elif hand_won == False:
+		elif self.won_hand == False:
 			self.balance -= self.bet
 
 	def reset_player_attr(self):
@@ -338,16 +335,19 @@ class Dealer():
 
 
 
-def get_outcome(dealer_final_total, player_final_total):
+def get_outcome():
 	print('FINAL OUTCOME\n-----------')
 	if dealer_final_total > 21:
 		print('Dealer busts! You win.')
+		player_1.won_hand = True
 	elif dealer_final_total < player_final_total:
-		print('You win!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, user_list[1]['name'], player_final_total))
+		player_1.won_hand = True
+		print('You win!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, player_1.name, player_final_total))
 	elif dealer_final_total > player_final_total:
-		print('You lose!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, user_list[1]['name'], player_final_total))
+		print('You lose!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, player_1.name, player_final_total))
 	elif dealer_final_total == player_final_total:
-		print('Push!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, user_list[1]['name'], player_final_total))
+		player_1.won_hand = "push"
+		print('Push!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, player_1.name, player_final_total))
 
 
 # list of players, may not need
@@ -363,28 +363,6 @@ user_list = [
 			'current_bet': 0
 			}
 ]
-#vidya's code
-
-deck = [2, 37, 28, 47, 6, 35, 22, 44, 29, 24, 51, 23, 13, 20, 14, 48, 43, 18, 32, 7, 10, 41, 1, 19, 30, 11, 52, 5, 25, 34, 50, 12, 45, 46, 36, 8, 27, 15, 40, 16, 26, 39, 17, 3, 38, 33, 21, 31, 9, 42, 4, 49]
-
-user_list = [
-			{
-			'name': 'dealer',
-			'current_hand': []
-			},
-			{
-			'name': '',
-			'current_hand': [],
-			'total_money': 1000,
-			'current_bet': 0
-			}
-
-
-]
-
-#code
-
-
 
 
 def check_if_ace(card):
@@ -405,12 +383,6 @@ def deal_card(deck, user):
 	current_card = shuffled_cards.give_one_card()
 	return current_card
 
-# def blackjack(user):
-# 	if len(user_list[1]['current_hand'])==2:
-# 		if tally(user)==21:
-# 			return True
-# 	else:
-# 		False
 
 def print_hand(user):
 	for x in user_list[1]['current_hand']:
@@ -478,23 +450,21 @@ while black_jack_running == True:
 
 	# Put tally of cards and show one of the dealer's cards
 	dealer.get_dealer_face_up_card()
-	## Get total of player cards  - if total is 21,
-	# Ask if player wants to hit or stand
 
-
-
-	#deal cards to user
-
-
+	## Get total of player cards  - if total is 21 add val and break
 	turn_1 = True
 	while True:
 		if player_1.ace_value == 21 and turn_1:
 			print('BLACKJACK! ', player_1.ace_value)
 			player_final_total = player_1.ace_value
 			break
+		elif player_1.ace_value > 21 or player_1.hand_value <= 21:
+			print('Your hand: ', player_1.hand_value)
+		elif player_1.hand_value > 21:
+			player_final_total = player_1.hand_value
+			break
 
 		hs_input = input('Would you like to hit (h), stand (s), or double down (d)?' )
-
 
 		# if hs_input.lower() in ['d', 'dd', 'double', 'double down'] and turn_1:
 		#
@@ -504,7 +474,7 @@ while black_jack_running == True:
 		# 	break
 		if hs_input.lower() in ['s', 'stand']:# Function for standing
 			# player cards tally
-			if player_1.ace_value > 21 or ace_value == False:
+			if player_1.ace_value > 21 or player_1.ace_value == False:
 				player_final_total = player_1.hand_value
 			else:
 				player_final_total = player_1.ace_value
@@ -516,43 +486,41 @@ while black_jack_running == True:
 			player_1.show_hand()
 			turn_1 = False
 
-			if player_1.ace_value > 21:
-				print('Your hand: ', player_1.hand_value)
-			elif player_1.hand_value >21:
-				print('Your hand: ', player_1.hand_value)
-				player_final_total = player_1.hand_value
-				break
 		else:
 			print('Please only put hit (h) or stand (s)')
 			continue
+
+	# will give us the dealer's cards
+	dealer_final_total= dealer.dealer_cards_check_total()
+
+	if player_final_total > 21:
+		print('You busted!  Too bad.\n\nDealer: {}\n{}: {}'.format(dealer_final_total, player_1.name, player_final_total))
 	else:
-		print('Please only put hit (h) or stand (s)')
-		continue
-
-
-
-	# Dealer gets one or more cards
-
-	# Show dealer cards
-	# Do we want to do this one card at a time?
-	dealer_final_total= dealer.dealer_cards_check_total() # will give us the dealer's cards
-
-	# Get total of user's hand
-
-	#get_outcome(dealer_final_total, player_total)
+		#get_outcome(dealer_final_total, player_total)
+		get_outcome()
 
 	# Adjust player balance (money)
 	player_1.update_balance()
 
+	# Tell player their current balance
+	print("Your current balance is $", player_1.balance)
 	# Reset the player's hand to empty list
 	player_1.reset_player_attr()
+
+	# Check if play has enough money to continue playing
+	if player_1.balance < 10:
+		print("Your balance is ", player_1.balance, \
+		"which is below the minimum bet.  You cannot play again. Goodbye!")
+		black_jack_running == False
 
 	# Ask if player would like to play again
 	while True:
 		play_again = input('Would you like to play again (yes/no)? ')
 		if play_again.lower() in "yes":
-			continue
+			break
 		elif play_again.lower() in "no":
 			print('Thanks for playing!')
 			black_jack_running = False
 			break
+		else:
+			print("Please only enter 'yes' or 'no'")
