@@ -141,6 +141,8 @@ class Player(object):
 		if self.has_ace == True:
 			self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
 			self.ace_value = self.hand_value + 10
+		else:
+			self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
 
 	def double_down_bet(self):
 		"""Doubles the player's bet for doubling down """
@@ -403,54 +405,12 @@ def deal_card(deck, user):
 	current_card = shuffled_cards.give_one_card()
 	return current_card
 
-<<<<<<< HEAD
-def tally(user):
-	total = []
-	# card1 = check_if_ace(user_list[1]['current_hand'][0])
-	# card2 = check_if_ace(user_list[1]['current_hand'][1])
-	# if player_1.has_ace == False:
-	# 	total.append(player_1.hand_value) #make two values anyway
-	# 	total.append(player_1.hand_value)
-	# elif card1 and card2:
-	# 	total = [2,12]
-	# elif card1:
-	# 	total = [(DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]+1),(DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]+11)]
-	# elif card2:
-	# 	total = [(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+1),(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+11)]
-	if len(user_list[1]['current_hand'])==2: # If there are two cards (same value..print one)
-		if total[0] == total[1]:
-			print("tally: ", total[0])
-		elif total[0]<total[1]:
-			print("your tally can be ",total[0], " or ", total[1])
-	if len(user_list[1]['current_hand'])>2:  #if more cards have been added
-		for c in new_cards:
-			if check_if_ace(c)==False:       #if the new card is NOT an ace
-				total[1]+= DECK_DICT[c]['value'][0]
-				total[0]+= DECK_DICT[c]['value'][0]
-			elif check_if_ace(c):            #if it IS an ace:
-				if card1 or card2:           #need to check if any other card is an ace
-					total[0]+= 1             #need to add corresponding ace values
-					total[1]+= 1
-				else:
-					total[0]+=1
-					total[1]+=11
-	try:
-		if total[0] > 21:
-			print('bust!')
-	except:
-		if total[1] >21:
-			print("can't use this tally: ", total[1])
-	print('tally:' ,total)
-	return total
-
-=======
->>>>>>> b8618267b54151a55e68fbf82499ff72059c23c3
-def blackjack(user):
-	if len(user_list[1]['current_hand'])==2:
-		if tally(user)==21:
-			return True
-	else:
-		False
+# def blackjack(user):
+# 	if len(user_list[1]['current_hand'])==2:
+# 		if tally(user)==21:
+# 			return True
+# 	else:
+# 		False
 
 def print_hand(user):
 	for x in user_list[1]['current_hand']:
@@ -500,19 +460,16 @@ while black_jack_running == True:
 
 	# Deal a card to the player, check if it's an ace
 	# increment value of hand, repeat for 2nd card
-	# player_1.get_card()
-	# player_1.check_if_ace()
-	# player_1.set_hand_values()
-	#
-	# player_1.get_card()
-	# player_1.check_if_ace()
-	# player_1.set_hand_values()
+	player_1.get_card()
+	player_1.check_if_ace()
+	player_1.set_hand_values()
 
-	# Show the player's hand:
-	# player_1.show_hand()
+	player_1.get_card()
+	player_1.check_if_ace()
+	player_1.set_hand_values()
 
-	""" Break to stop while loop until rest of code filled in"""
-	black_jack_running = False
+	#Show the player's hand:
+	player_1.show_hand()
 
 	# Create instance of Dealer
 
@@ -527,54 +484,50 @@ while black_jack_running == True:
 
 
 	#deal cards to user
-	user_list[1]['current_hand'].append(deal_card(deck,user_list[1]))
-	user_list[1]['current_hand'].append(deal_card(deck,user_list[1]))
-	print('first hand: ', user_list[1]['current_hand'])
-	print('your hand: ', DECK_DICT[user_list[1]['current_hand'][0]]['card'], DECK_DICT[user_list[1]['current_hand'][1]]['card'])
-	tally(user_list[1]) # tally first two cards
+
 
 	turn_1 = True
 	while True:
-		if blackjack(user_list[1]):
-			print('blackjack!')
+		if player_1.ace_value == 21 and turn_1:
+			print('BLACKJACK! ', player_1.ace_value)
+			player_final_total = player_1.ace_value
 			break
+
 		hs_input = input('Would you like to hit (h), stand (s), or double down (d)?' )
 
 
-		if hs_input.lower() in ['d', 'dd', 'double', 'double down'] and turn_1:
-			total = double_down(user_list)
-			player_1.double_down_bet()
-			turn_1 = False
-			print('You doubled down! Total: ', total)
-			break
-		elif hs_input.lower() in ['s', 'stand']:# Function for standing
+		# if hs_input.lower() in ['d', 'dd', 'double', 'double down'] and turn_1:
+		#
+		# 	player_1.double_down_bet()
+		# 	turn_1 = False
+		# 	print('You doubled down! Total: ', total)
+		# 	break
+		if hs_input.lower() in ['s', 'stand']:# Function for standing
 			# player cards tally
-			tally(user_list[1])
-			turn_1 = False
+			if player_1.ace_value > 21 or ace_value == False:
+				player_final_total = player_1.hand_value
+			else:
+				player_final_total = player_1.ace_value
 			break
 		elif hs_input.lower() in ['h', 'hit']:
-			new_cards.append(hit(deck,user_list[1]))
+			player_1.get_card()
+			player_1.check_if_ace()
+			player_1.set_hand_values()
+			player_1.show_hand()
 			turn_1 = False
-			for x in (user_list[1]['current_hand']):
-				print('your cards now: ', DECK_DICT[x]['card'])
-			#print('new tally: ', tally(user_list[1]))
-			if tally(user_list[1])[0]>21:
-				print(tally(user_list[1])[1])
-			if tally(user_list[1])[1]>21:
-				print(tally(user_list[1])[0])
-			if tally(user_list[1])[1]>21 and tally(user_list[1])[0]>21:
-				print('you lost!')
+
+			if player_1.ace_value > 21:
+				print('Your hand: ', player_1.hand_value)
+			elif player_1.hand_value >21:
+				print('Your hand: ', player_1.hand_value)
+				player_final_total = player_1.hand_value
 				break
-			#print('card: ', DECK_DICT[hit()]['value'])
-			print(user_list[1]['current_hand'])
-			continue
 		else:
 			print('Please only put hit (h) or stand (s)')
 			continue
 	else:
 		print('Please only put hit (h) or stand (s)')
 		continue
-	print(deck)
 
 
 
