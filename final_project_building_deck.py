@@ -397,7 +397,7 @@ def shuffle_deck(deck):
 
 
 def deal_card(deck, user):
-	current_card = deck.pop()
+	current_card = shuffled_cards.give_one_card()
 	return current_card
 
 def tally(user):
@@ -459,6 +459,15 @@ def hit(deck,user):
 new_cards= []
 deck = shuffle_deck(DECK_DICT) # deck is a list of shuffled numbers
 								#correlating to values in DECK_DICT
+def double_down(user_list):
+	"""Player can double their bet and will only receive 1 card """
+	curr_card = shuffled_cards.give_one_card()
+	user_list[1]['current_hand'].append(curr_card)
+	new_cards.append(curr_card)
+	total = tally(user_list[1])[1]
+	return total
+
+
 
 # Create instance of dealer
 dealer =  Dealer()
@@ -488,6 +497,7 @@ while black_jack_running == True:
 	# player_1.get_card()
 	# player_1.check_if_ace()
 	# player_1.set_hand_values()
+	#
 	# player_1.get_card()
 	# player_1.check_if_ace()
 	# player_1.set_hand_values()
@@ -513,21 +523,32 @@ while black_jack_running == True:
 	#deal cards to user
 	user_list[1]['current_hand'].append(deal_card(deck,user_list[1]))
 	user_list[1]['current_hand'].append(deal_card(deck,user_list[1]))
-	print('first hand: ',user_list[1]['current_hand'])
+	print('first hand: ', user_list[1]['current_hand'])
 	print('your hand: ', DECK_DICT[user_list[1]['current_hand'][0]]['card'], DECK_DICT[user_list[1]['current_hand'][1]]['card'])
-	tally(user_list[1])
+	tally(user_list[1]) # tally first two cards
 
+	turn_1 = True
 	while True:
 		if blackjack(user_list[1]):
 			print('blackjack!')
 			break
-		hs_input = input('Would you like to hit (h) or stand (s)?' )
-		if hs_input.lower() in ['s', 'stand']:# Function for standing
+		hs_input = input('Would you like to hit (h), stand (s), or double down (d)?' )
+
+
+		if hs_input.lower() in ['d', 'dd', 'double', 'double down'] and turn_1:
+			total = double_down(user_list)
+			player_1.double_down_bet()
+			turn_1 = False
+			print('You doubled down! Total: ', total)
+			break
+		elif hs_input.lower() in ['s', 'stand']:# Function for standing
 			# player cards tally
 			tally(user_list[1])
+			turn_1 = False
 			break
 		elif hs_input.lower() in ['h', 'hit']:
 			new_cards.append(hit(deck,user_list[1]))
+			turn_1 = False
 			for x in (user_list[1]['current_hand']):
 				print('your cards now: ', DECK_DICT[x]['card'])
 			#print('new tally: ', tally(user_list[1]))
