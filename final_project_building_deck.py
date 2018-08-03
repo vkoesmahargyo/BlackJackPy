@@ -75,6 +75,7 @@ DECK_DICT = {
 class Player(object):
 	player_hand = []
 	hand_value = 0
+	ace_value = 0
 	has_ace = False
 	balance = 1000
 	bet = 0
@@ -137,7 +138,9 @@ class Player(object):
 
 	def set_hand_values(self):
 		"""Add card value to hand value"""
-		self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
+		if self.has_ace == True:
+			self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
+			self.ace_value = self.hand_value + 10
 
 	def double_down_bet(self):
 		"""Doubles the player's bet for doubling down """
@@ -179,10 +182,6 @@ class Card_Deck(object):
 # Get Deck of cards
 shuffled_cards = Card_Deck()
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1799d375e576fc10b108949eb57dd15990f77331
 # get a player name
 def get_player_name():
 	while True:
@@ -259,20 +258,12 @@ class Dealer():
 				user_list[0]['current_hand'].append(curr_card) # add to dealer's current hand
 				temp_total = total + DECK_DICT[curr_card]['value'][0]
 
-<<<<<<< HEAD
-				if dealer.check_if_ace(curr_card) and total < 11: # if new card is an ace and total is less than 11 but not soft 17
-=======
 				if dealer.check_if_ace(curr_card) and total < 11: # if new card is an ace and total is less than 11
->>>>>>> 1799d375e576fc10b108949eb57dd15990f77331
 					total += 11
 					soft_card = True
 				elif dealer.check_if_ace(curr_card) and total >= 11: # if new card is an ace and total is >= 11
 					total += 1
-<<<<<<< HEAD
-				elif soft_card == True and temp_total >= 22:
-=======
 				elif soft_card == True and temp_total >= 22: # 'busted' w/ soft hand;  not real bust
->>>>>>> 1799d375e576fc10b108949eb57dd15990f77331
 					total = temp_total - 10
 					soft_card = False
 				else:
@@ -296,15 +287,9 @@ class Dealer():
 					soft_card = False
 				elif temp_total >= 22 and soft_card == False: # dealer busts
 					total = temp_total
-<<<<<<< HEAD
-				elif temp_total <= 21: # if we have a card that doesnt bust or equal 17
-					total = temp_total
-				else: # temp_total is 17 and it is a hard 17
-=======
 				#elif temp_total <= 21: # if we have a card that doesnt bust
 				#	total = temp_total
 				else:
->>>>>>> 1799d375e576fc10b108949eb57dd15990f77331
 					total = temp_total
 
 				dealer.print_dealer_cards(turn = False, running_total=total) # print dealer cards after getting next card
@@ -322,11 +307,7 @@ class Dealer():
 			return total
 		elif total == 17 and card_1_ace == False and card_2_ace == False: # total is hard 17
 			return total
-<<<<<<< HEAD
-		elif total <= 17:
-=======
 		elif total <= 17: # soft 17 or less
->>>>>>> 1799d375e576fc10b108949eb57dd15990f77331
 			return dealer.less_than_18(total, card_1_ace, card_2_ace)
 
 
@@ -422,45 +403,6 @@ def deal_card(deck, user):
 	current_card = shuffled_cards.give_one_card()
 	return current_card
 
-def tally(user):
-	total = []
-	card1 = check_if_ace(user_list[1]['current_hand'][0])
-	card2 = check_if_ace(user_list[1]['current_hand'][1])
-	if card1 == False and card2 == False:
-		total.append(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]) #make two values anyway
-		total.append(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+DECK_DICT[user_list[1]['current_hand'][1]]['value'][0])
-	elif card1 and card2:
-		total = [2,12]
-	elif card1:
-		total = [(DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]+1),(DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]+11)]
-	elif card2:
-		total = [(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+1),(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+11)]
-	if len(user_list[1]['current_hand'])==2:
-		if total[0] == total[1]:
-			print("tally: ", total[0])
-		elif total[0]<total[1]:
-			print("your tally can be ",total[0], " or ", total[1])
-	if len(user_list[1]['current_hand'])>2:  #if more cards have been added
-		for c in new_cards:
-			if check_if_ace(c)==False:       #if the new card is NOT an ace
-				total[1]+= DECK_DICT[c]['value'][0]
-				total[0]+= DECK_DICT[c]['value'][0]
-			elif check_if_ace(c):            #if it IS an ace:
-				if card1 or card2:           #need to check if any other card is an ace
-					total[0]+= 1             #need to add corresponding ace values
-					total[1]+= 1
-				else:
-					total[0]+=1
-					total[1]+=11
-	try:
-		if total[0] > 21:
-			print('bust!')
-	except:
-		if total[1] >21:
-			print("can't use this tally: ", total[1])
-	print('tally:' ,total)
-	return total
-
 def blackjack(user):
 	if len(user_list[1]['current_hand'])==2:
 		if tally(user)==21:
@@ -540,156 +482,6 @@ while black_jack_running == True:
 	## Get total of player cards  - if total is 21,
 	# Ask if player wants to hit or stand
 
-<<<<<<< HEAD
-#vidya's code
-
-deck = [2, 37, 28, 47, 6, 35, 22, 44, 29, 24, 51, 23, 13, 20, 14, 48, 43, 18, 32, 7, 10, 41, 1, 19, 30, 11, 52, 5, 25, 34, 50, 12, 45, 46, 36, 8, 27, 15, 40, 16, 26, 39, 17, 3, 38, 33, 21, 31, 9, 42, 4, 49]
-
-user_list = [
-			{
-			'name': 'dealer',
-			'current_hand': []
-			},
-			{
-			'name': '',
-			'current_hand': [],
-			'total_money': 1000,
-			'current_bet': 0
-			}
-
-
-]
-
-#code
-
-
-
-
-def check_if_ace(card):
-	if len(DECK_DICT[card]['value']) == 2:
-		return True
-	else:
-		return False
-
-def shuffle_deck(deck):
-	shuffled_list = []
-	for key in deck.keys():
-		shuffled_list.append(key)
-	random.shuffle(shuffled_list)
-	return shuffled_list
-
-
-def deal_card(deck, user):
-	current_card = deck.pop()
-	return current_card
-
-def tally(user):
-	total = []
-	card1 = check_if_ace(user_list[1]['current_hand'][0])
-	card2 = check_if_ace(user_list[1]['current_hand'][1])
-	if card1 == False and card2 == False:
-		total.append(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]) #make two values anyway
-		total.append(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+DECK_DICT[user_list[1]['current_hand'][1]]['value'][0])
-	elif card1 and card2:
-		total = [2,12]
-	elif card1:
-		total = [(DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]+1),(DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]+11)]
-	elif card2:
-		total = [(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+1),(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+11)]
-	if len(user_list[1]['current_hand'])==2:
-		if total[0] == total[1]:
-			print("tally: ", total[0])
-		elif total[0]<total[1]:
-			print("your tally can be ",total[0], " or ", total[1])
-	if len(user_list[1]['current_hand'])>2:  #if more cards have been added
-		for c in new_cards:
-			if check_if_ace(c)==False:       #if the new card is NOT an ace
-				total[1]+= DECK_DICT[c]['value'][0]
-				total[0]+= DECK_DICT[c]['value'][0]
-			elif check_if_ace(c):            #if it IS an ace:
-				if card1 or card2:           #need to check if any other card is an ace
-					total[0]+= 1             #need to add corresponding ace values
-					total[1]+= 1
-				else:
-					total[0]+=1
-					total[1]+=11
-	try:
-		if total[0] > 21:
-			print('bust!')
-	except:
-		if total[1] >21:
-			print("can't use this tally: ", total[1])
-	print('tally:' ,total)
-	return total
-
-def blackjack(user):
-    if len(user_list[1]['current_hand'])==2:
-        if tally(user)==21:
-            return True
-    else:
-        False
-
-def print_hand(user):
-    for x in user_list[1]['current_hand']:
-        print('your cards: ', DECK_DICT[x]['card'])
-    return user_list[1]['current_hand']
-
-def hit(deck,user):
-		new_card = deal_card(deck, user_list[1])
-		user_list[1]['current_hand'].append(new_card)
-		return new_card
-
-new_cards= []
-deck = shuffle_deck(DECK_DICT) # deck is a list of shuffled numbers
-								#correlating to values in DECK_DICT
-print (deck)
-
-#deal cards to user
-user_list[1]['current_hand'].append(deal_card(deck,user_list[1]))
-user_list[1]['current_hand'].append(deal_card(deck,user_list[1]))
-print('first hand: ',user_list[1]['current_hand'])
-print('your hand: ', DECK_DICT[user_list[1]['current_hand'][0]]['card'], DECK_DICT[user_list[1]['current_hand'][1]]['card'])
-tally(user_list[1])
-
-#check if blackjack
-blackjack(user_list[1])
-
-
-
-	while True:while True:
-
-		#check if blackjack
-		if blackjack(user_list[1]):
-			print('blackjack!')
-			break
-		hs_input = input('Would you like to hit (h) or stand (s)?' )
-		if hs_input.lower() in ['s', 'stand']:
-			# Function for standing
-			# player cards tally
-			tally(user_list[1])
-			break
-		elif hs_input.lower() in ['h', 'hit']:
-				#new_cards= []
-				new_cards.append(hit(deck,user_list[1]))
-				for x in (user_list[1]['current_hand']):
-					print('your cards now: ', DECK_DICT[x]['card'])
-				#print('new tally: ', tally(user_list[1]))
-				if tally(user_list[1])[0]>21:
-					print(tally(user_list[1])[1])
-				if tally(user_list[1])[1]>21:
-					print(tally(user_list[1])[0])
-				if tally(user_list[1])[1]>21 and tally(user_list[1])[0]>21:
-					#call dealer
-					print('you lost!')
-					break
-				#print('card: ', DECK_DICT[hit()]['value'])
-				print(user_list[1]['current_hand'])
-				continue
-		else:
-			print('Please only put hit (h) or stand (s)')
-			continue
-		print(deck)
-=======
 
 
 	#deal cards to user
@@ -741,7 +533,6 @@ blackjack(user_list[1])
 		print('Please only put hit (h) or stand (s)')
 		continue
 	print(deck)
->>>>>>> 1799d375e576fc10b108949eb57dd15990f77331
 
 
 
@@ -750,18 +541,8 @@ blackjack(user_list[1])
 	# Show dealer cards
 	# Do we want to do this one card at a time?
 	dealer_final_total= dealer.dealer_cards_check_total() # will give us the dealer's cards
-<<<<<<< HEAD
-
 
 	# Get total of user's hand
-	# Get total of dealer's hand
-	#  Compare and determine winner
-
-	# show outcome - win/lose
-=======
-
-	# Get total of user's hand
->>>>>>> 1799d375e576fc10b108949eb57dd15990f77331
 
 	#get_outcome(dealer_final_total, player_total)
 
