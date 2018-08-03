@@ -402,18 +402,18 @@ def deal_card(deck, user):
 
 def tally(user):
 	total = []
-	card1 = check_if_ace(user_list[1]['current_hand'][0])
-	card2 = check_if_ace(user_list[1]['current_hand'][1])
-	if card1 == False and card2 == False:
-		total.append(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]) #make two values anyway
-		total.append(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+DECK_DICT[user_list[1]['current_hand'][1]]['value'][0])
-	elif card1 and card2:
-		total = [2,12]
-	elif card1:
-		total = [(DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]+1),(DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]+11)]
-	elif card2:
-		total = [(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+1),(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+11)]
-	if len(user_list[1]['current_hand'])==2:
+	# card1 = check_if_ace(user_list[1]['current_hand'][0])
+	# card2 = check_if_ace(user_list[1]['current_hand'][1])
+	# if player_1.has_ace == False:
+	# 	total.append(player_1.hand_value) #make two values anyway
+	# 	total.append(player_1.hand_value)
+	# elif card1 and card2:
+	# 	total = [2,12]
+	# elif card1:
+	# 	total = [(DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]+1),(DECK_DICT[user_list[1]['current_hand'][1]]['value'][0]+11)]
+	# elif card2:
+	# 	total = [(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+1),(DECK_DICT[user_list[1]['current_hand'][0]]['value'][0]+11)]
+	if len(user_list[1]['current_hand'])==2: # If there are two cards (same value..print one)
 		if total[0] == total[1]:
 			print("tally: ", total[0])
 		elif total[0]<total[1]:
