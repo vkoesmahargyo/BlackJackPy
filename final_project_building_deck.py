@@ -1,7 +1,7 @@
 import random
 from time import sleep
 
-
+# Unicode variables representing suits
 CLUB = "\u2663"
 HEART = "\u2665"
 DIAMOND = "\u2666"
@@ -11,11 +11,12 @@ values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']*4
 trial_deck = {}
 for i in range(1, 53):
 	trial_deck[i] = {
-						'card': values[i-1] + ' of ' + suits[i-1],
+						'card': values[i-1] + ' ' + suits[i-1],
 						'actual_value': []
 
 					}
 
+# Dictionary for a deck o 52 cards
 DECK_DICT = {
 				1: {'card': 'A ♣', 'value': [1, 11]},
 				2: {'card': '2 ♥', 'value': [2]},
@@ -98,13 +99,12 @@ class Player(object):
 			to_print.append(player_1.player_hand[i][0])
 		print("[" + "]  [".join(to_print) + "]")
 
-	# THIS SHOULD MAYBE GO INTO THE GAME CODE?
 	def get_wager(self):
 		"""Gets the player's bet"""
 		while True:
 			try:
 				wager = int(input("How much would you like to bet? (Minimum is $10)." \
-                                  + "\n" + "Bet: $ "))
+								  + "\n" + "Bet: $ "))
 				if wager < 10:
 					print("\n" + "The minimum bet is $10.  Please try again..." + "\n")
 					sleep(1)
@@ -116,15 +116,14 @@ class Player(object):
 				else:
 					self.bet += wager
 					print("\n" + ("=" * 32) + "\n" \
-					 	+ "Your bet for this hand is ${}.".format(self.bet) \
-					 	+ "\n" + ("=" * 32) + "\n")
+						+ "Your bet for this hand is ${}.".format(self.bet) \
+						+ "\n" + ("=" * 32) + "\n")
 					sleep(1)
 					break
 			except:
 				print("\n" + "Your bet must be a integar number. Please try again..." + "\n")
 				sleep(1)
 
-	# gets a card for the player
 	def get_card(self):
 		"""Gets a card for the player """
 		card_key = shuffled_cards.give_one_card()
@@ -161,34 +160,35 @@ class Player(object):
 		self.bet = 0
 
 
-# Card_Deck variables and methods
+# Card_Deck Class: variables and methods
 class Card_Deck(object):
-    deck = []
+	deck = []
 
-	# generates a new deck
-    def new_deck(self):
-        self.deck = [x for x in range(1,53)]
+	def new_deck(self):
+		self.deck = [x for x in range(1,53)]
 
-	# shuffles the deck
-    def shuffle(self):
-        random.shuffle(self.deck)
+	def shuffle(self):
+		"""Shuffles the deck. """
+		random.shuffle(self.deck)
 
-	# removes card from deck and returns
-    def give_one_card(self):
-        card = self.deck.pop()
-        return card
+	def give_one_card(self):
+		"""Removes card from the deck and 'deals' it """
+		card = self.deck.pop()
+		return card
 
+# Get Deck of cards
 shuffled_cards = Card_Deck()
+
 # get a player name
 def get_player_name():
-    while True:
-        user_name = input("\nPlease enter your name: ")
-        if not user_name:
-            print("You must enter a name to play.  Please try again...")
-            sleep(1)
-        else:
-            return user_name
-            break
+	while True:
+		user_name = input("\nPlease enter your name: ")
+		if not user_name:
+			print("You must enter a name to play.  Please try again...")
+			sleep(1)
+		else:
+			return user_name
+			break
 
 # tell player how to play Black Jack
 def instructions():
@@ -255,12 +255,12 @@ class Dealer():
 				user_list[0]['current_hand'].append(curr_card) # add to dealer's current hand
 				temp_total = total + DECK_DICT[curr_card]['value'][0]
 
-				if dealer.check_if_ace(curr_card) and total < 11: # if new card is an ace and total is less than 11 but not soft 17
+				if dealer.check_if_ace(curr_card) and total < 11: # if new card is an ace and total is less than 11
 					total += 11
 					soft_card = True
 				elif dealer.check_if_ace(curr_card) and total >= 11: # if new card is an ace and total is >= 11
 					total += 1
-				elif soft_card == True and temp_total >= 22:
+				elif soft_card == True and temp_total >= 22: # 'busted' w/ soft hand;  not real bust
 					total = temp_total - 10
 					soft_card = False
 				else:
@@ -271,8 +271,8 @@ class Dealer():
 				if total >= 17:
 					break
 			return total
-		else:	# if ace exists in ONE of dealer's first two cards
-			soft_card = True # assume it is a 'soft hand' (since it is either A2, A3, A4, or A5)
+		else:	# if ace exists in one/both of dealer's first two cards
+			soft_card = True # assume it is a 'soft hand' (since it is either AA, A2, A3, A4, A5, A6)
 			while True:
 				curr_card = shuffled_cards.give_one_card() # take card from deck
 				user_list[0]['current_hand'].append(curr_card) # add to dealer's current hand
@@ -284,9 +284,9 @@ class Dealer():
 					soft_card = False
 				elif temp_total >= 22 and soft_card == False: # dealer busts
 					total = temp_total
-				elif temp_total <= 21: # if we have a card that doesnt bust or equal 17
-					total = temp_total
-				else: # temp_total is 17 and it is a hard 17
+				#elif temp_total <= 21: # if we have a card that doesnt bust
+				#	total = temp_total
+				else:
 					total = temp_total
 
 				dealer.print_dealer_cards(turn = False, running_total=total) # print dealer cards after getting next card
@@ -297,14 +297,14 @@ class Dealer():
 
 
 	def dealer_cards_check_total(self):
-		"""This will see if total is soft 17, >= hard 17, or less than 17 """
+		"""This will see if total is hard 17, > hard 17, or less than 18 """
 		total, card_1_ace, card_2_ace = dealer.get_dealer_two_card_sum() # getting sum of first 2 cards in dealer's hand
 		dealer.print_dealer_cards(running_total=total, turn = True) # Initial print out of dealer's 2 cards
 		if total > 17 :
 			return total
 		elif total == 17 and card_1_ace == False and card_2_ace == False: # total is hard 17
 			return total
-		elif total <= 17:
+		elif total <= 17: # soft 17 or less
 			return dealer.less_than_18(total, card_1_ace, card_2_ace)
 
 
@@ -315,9 +315,9 @@ class Dealer():
 		if turn == True:
 			print('Dealer\'s Hand:\n-----------\n') # header
 			for card in user_list[0]['current_hand']:
-	 			print(DECK_DICT[card]['card'])
-	 			turn = False
-	 			sleep(1)
+				print(DECK_DICT[card]['card'])
+				turn = False
+				sleep(1)
 			print('Calculating...')
 			sleep(1)
 			print('\n\tTotal: ', running_total)
@@ -440,16 +440,16 @@ def tally(user):
 	return total
 
 def blackjack(user):
-    if len(user_list[1]['current_hand'])==2:
-        if tally(user)==21:
-            return True
-    else:
-        False
+	if len(user_list[1]['current_hand'])==2:
+		if tally(user)==21:
+			return True
+	else:
+		False
 
 def print_hand(user):
-    for x in user_list[1]['current_hand']:
-        print('your cards: ', DECK_DICT[x]['card'])
-    return user_list[1]['current_hand']
+	for x in user_list[1]['current_hand']:
+		print('your cards: ', DECK_DICT[x]['card'])
+	return user_list[1]['current_hand']
 
 def hit(deck,user):
 		new_card = deal_card(deck, user_list[1])
@@ -459,10 +459,9 @@ def hit(deck,user):
 new_cards= []
 deck = shuffle_deck(DECK_DICT) # deck is a list of shuffled numbers
 								#correlating to values in DECK_DICT
-# create deck to play with
 
-# Create a Dealer
-
+# Create instance of dealer
+dealer =  Dealer()
 
 ### START OF GAME/WHILE LOOP ###
 
@@ -500,7 +499,7 @@ while black_jack_running == True:
 	black_jack_running = False
 
 	# Create instance of Dealer
-	dealer =  Dealer()
+
 	# Deal out cards to dealer
 	dealer.dealer_get_initial_cards()
 
@@ -511,7 +510,7 @@ while black_jack_running == True:
 
 
 
-#deal cards to user
+	#deal cards to user
 	user_list[1]['current_hand'].append(deal_card(deck,user_list[1]))
 	user_list[1]['current_hand'].append(deal_card(deck,user_list[1]))
 	print('first hand: ',user_list[1]['current_hand'])
@@ -523,13 +522,11 @@ while black_jack_running == True:
 			print('blackjack!')
 			break
 		hs_input = input('Would you like to hit (h) or stand (s)?' )
-		if hs_input.lower() in ['s', 'stand']:
-			# Function for standing
+		if hs_input.lower() in ['s', 'stand']:# Function for standing
 			# player cards tally
 			tally(user_list[1])
 			break
 		elif hs_input.lower() in ['h', 'hit']:
-			#new_cards= []
 			new_cards.append(hit(deck,user_list[1]))
 			for x in (user_list[1]['current_hand']):
 				print('your cards now: ', DECK_DICT[x]['card'])
@@ -539,7 +536,6 @@ while black_jack_running == True:
 			if tally(user_list[1])[1]>21:
 				print(tally(user_list[1])[0])
 			if tally(user_list[1])[1]>21 and tally(user_list[1])[0]>21:
-				#call dealer
 				print('you lost!')
 				break
 			#print('card: ', DECK_DICT[hit()]['value'])
@@ -563,11 +559,7 @@ while black_jack_running == True:
 
 	# Get total of user's hand
 
-	#  Compare and determine winner
-
-	# show outcome - win/lose
-
-	#get_outcome(dealer_final_total, player_final_total)
+	#get_outcome(dealer_final_total, player_total)
 
 	# Adjust player balance (money)
 	player_1.update_balance()
