@@ -562,12 +562,9 @@ blackjack(user_list[1])
 	# Dealer gets one or more cards
 
 	# Show dealer cards
-<<<<<<< HEAD
-	dealer_final_total= dealer_cards_check_total() # will give us the dealer's cards
-=======
 	# Do we want to do this one card at a time?
 	dealer_final_total= dealer.dealer_cards_check_total() # will give us the dealer's cards
->>>>>>> 2e36c59cec500a4e448db0acf0af1585cd5b4c41
+
 
 	# Get total of user's hand
 	# Get total of dealer's hand
