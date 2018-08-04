@@ -439,10 +439,12 @@ while black_jack_running == True:
 	## Get total of player cards  - if total is 21 add val and break
 	turn_1 = True
 	player_1.busted = False
+	player_blackjack = False
 	while True:
 		if player_1.ace_value == 21 and turn_1:
 			print('BLACKJACK! ', player_1.ace_value)
 			player_final_total = player_1.ace_value
+			player_blackjack = True
 			break
 		# elif player_1.ace_value > 21 or player_1.hand_value <= 21:
 		# 	print('Your hand: ', player_1.hand_value)
@@ -451,9 +453,9 @@ while black_jack_running == True:
 		# 	break
 
 		if (player_1.hand_value == 10 or player_1.hand_value == 11 or player_1.ace_value == 10 or player_1.ace_value == 11) and turn_1:
-			hs_input = input('Would you like to hit (h), stand (s), or double down (d)?' )
+			hs_input = input('\nWould you like to hit (h), stand (s), or double down (d)?' )
 		else:
-			hs_input = input('Would you like to hit (h) or stand (s)?')
+			hs_input = input('\nWould you like to hit (h) or stand (s)?')
 
 		if hs_input.lower() in ['d', 'dd', 'double', 'double down'] and turn_1:
 			player_1.double_down_bet()
@@ -508,8 +510,11 @@ while black_jack_running == True:
 	if player_1.busted == False:
 		dealer_final_total= dealer.dealer_cards_check_total()
 		get_outcome(dealer_final_total, player_final_total)
+	elif player_blackjack == True:
+		print("\nDealer's cards: ", DECK_DICT[dealer.dealer_cards[0]]['card'],
+									DECK_DICT[dealer.dealer_cards[1]]['card'])
 	else:
-		print("Dealer's cards: ", DECK_DICT[dealer.dealer_cards[0]]['card'],
+		print("\nDealer's cards: ", DECK_DICT[dealer.dealer_cards[0]]['card'],
 									DECK_DICT[dealer.dealer_cards[1]]['card'])
 
 	# Adjust player balance (money)
