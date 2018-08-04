@@ -379,9 +379,9 @@ def double_down():
 	player_1.show_hand()
 
 	if player_1.has_ace:
-		return print('Your hand: {} '.format(player_1.ace_value))
+		return print('Total: {} '.format(player_1.ace_value))
 	else:
-		return print('Your hand: {} '.format(player_1.hand_value))
+		return print('Total: {} '.format(player_1.hand_value))
 
 
 # Create instance of dealer
@@ -476,9 +476,9 @@ while black_jack_running == True:
 
 
 			if player_1.ace_value > 21 and player_1.hand_value < 22: # bust with soft hand...
-				print('Your hand: ', player_1.hand_value)
+				print('Total: ', player_1.hand_value)
 			elif player_1.hand_value > 21: # bust with regular hand
-				print('Your hand: ', player_1.hand_value)
+				print('Total: ', player_1.hand_value)
 				sleep(1)
 				print('You busted!')
 				player_final_total = player_1.hand_value
@@ -490,10 +490,10 @@ while black_jack_running == True:
 				#or only compare outcomes if player total <21
 				break
 			elif player_1.ace_value <= 21 and player_1.has_ace: # soft hand still in play
-				print('Your hand: {} or {}'.format(player_1.hand_value, player_1.ace_value))
+				print('Total: {} or {}'.format(player_1.hand_value, player_1.ace_value))
 				sleep(1)
 			else:
-				print('Your hand: ', player_1.hand_value)
+				print('Total: ', player_1.hand_value)
 				sleep(1)
 
 		else:
