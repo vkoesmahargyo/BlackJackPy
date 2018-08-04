@@ -173,7 +173,7 @@ class Card_Deck(object):
 	deck = []
 
 	def new_deck(self):
-		self.deck = [x for x in range(1,53)]
+		self.deck = [x for x in range(1,53)] * 6
 
 	def shuffle(self):
 		"""Shuffles the deck. """
