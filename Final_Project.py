@@ -159,6 +159,7 @@ class Player(object):
 		""" Resets the player's hand"""
 		self.player_hand = []
 		self.hand_value = 0
+		self.ace_value = 0
 		self.has_ace = False
 		self.bet = 0
 		self.hand_won = None
