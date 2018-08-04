@@ -369,19 +369,6 @@ def get_outcome(dealer_final_total, player_final_total):
 	elif dealer_final_total == player_final_total:
 		print('Push!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, player_1.name, player_final_total))
 
-# list of players, may not need
-user_list = [
-			{
-			'name': 'dealer',
-			'current_hand': [ ]
-			},
-			{
-			'name': '',
-			'current_hand': [],
-			'total_money': 1000,
-			'current_bet': 0
-			}
-]
 
 
 def check_if_ace(card):
@@ -389,30 +376,6 @@ def check_if_ace(card):
 		return True
 	else:
 		return False
-
-def shuffle_deck(deck):
-	shuffled_list = []
-	for key in deck.keys():
-		shuffled_list.append(key)
-	random.shuffle(shuffled_list)
-	return shuffled_list
-
-
-def deal_card(deck, user):
-	current_card = shuffled_cards.give_one_card()
-	return current_card
-
-
-def print_hand(user):
-	for x in user_list[1]['current_hand']:
-		print('your cards: ', DECK_DICT[x]['card'])
-	return user_list[1]['current_hand']
-
-def hit(deck,user):
-		new_card = deal_card(deck, user_list[1])
-		user_list[1]['current_hand'].append(new_card)
-		return new_card
-
 
 def double_down():
 	"""Player can double their bet and will only receive 1 card """
