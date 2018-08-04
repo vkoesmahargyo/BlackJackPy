@@ -77,10 +77,11 @@ class Player(object):
 	hand_value = 0
 	ace_value = 0
 	has_ace = False
+	busted = False
+	hand_won = None
 	balance = 1000
 	bet = 0
-	hand_won = None
-	player_busted = False
+
 
 	def __init__(self, name):
 		self.name = name
@@ -150,10 +151,10 @@ class Player(object):
 
 	def update_balance(self):
 		"""Updates the balance """
-		if self.hand_won == True:
-			self.balance += self.bet
-		elif self.hand_won == False:
+		if self.busted == True or self.hand_won	== False:
 			self.balance -= self.bet
+		elif self.hand_won == True:
+			self.balance += self.bet
 
 
 	def reset_player_attr(self):
@@ -164,6 +165,7 @@ class Player(object):
 		self.has_ace = False
 		self.bet = 0
 		self.hand_won = None
+		self.busted = False
 
 
 # Card_Deck Class: variables and methods
@@ -436,7 +438,7 @@ while black_jack_running == True:
 
 	## Get total of player cards  - if total is 21 add val and break
 	turn_1 = True
-	player_1.player_busted = False
+	player_1.busted = False
 	while True:
 		if player_1.ace_value == 21 and turn_1:
 			print('BLACKJACK! ', player_1.ace_value)
@@ -484,7 +486,7 @@ while black_jack_running == True:
 				sleep(1)
 				print('You busted!')
 				player_final_total = player_1.hand_value
-				player_1.player_busted = True
+				player_1.busted = True
 
 				#stop dealer from dealing itself a bunch of cards
 				#just show dealers cards
@@ -503,7 +505,7 @@ while black_jack_running == True:
 			continue
 
 	# will give us the dealer's cards
-	if player_1.player_busted == False:
+	if player_1.busted == False:
 		dealer_final_total= dealer.dealer_cards_check_total()
 		get_outcome(dealer_final_total, player_final_total)
 	else:
