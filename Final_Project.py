@@ -234,7 +234,7 @@ class Dealer():
 
 	def get_dealer_face_up_card(self):
 		"""printing out only the first of dealer's cards"""
-		print('Dealer:\t', DECK_DICT[self.dealer_cards[0]]['card'])
+		print('Dealer:\t', "[", DECK_DICT[self.dealer_cards[0]]['card'], "]")
 
 	def get_dealer_two_card_sum(self):
 		"""Getting sum of dealer's two cards, and returning their total along with
@@ -329,7 +329,7 @@ class Dealer():
 		if turn == True:
 			print('\nDealer\'s Hand:\n-----------\n') # header
 			for card in self.dealer_cards:
-				print(DECK_DICT[card]['card'])
+				print("[", DECK_DICT[card]['card'], "]")
 				turn = False
 				sleep(0.5)
 			print('Calculating...')
@@ -338,7 +338,7 @@ class Dealer():
 			sleep(0.5)
 
 		else:
-			print(DECK_DICT[self.dealer_cards[-1]]['card'])
+			print("[", DECK_DICT[self.dealer_cards[-1]]['card'], "]")
 			sleep(0.5)
 			print('Calculating...')
 			sleep(0.5)
@@ -451,11 +451,11 @@ while black_jack_running == True:
 			player_final_total = player_1.ace_value
 			player_blackjack = True
 			break
-		if dealer_blackjack == 21:
+		if dealer.dealer_blackjack() == 21:
 			dealer_21 = True
 			break
 
-		if (player_1.hand_value == 10 or player_1.hand_value == 11 or player_1.ace_value == 10 or player_1.ace_value == 11) and turn_1:
+		if (player_1.hand_value == 10 or player_1.hand_value == 11 or player_1.ace_value == 10 or player_1.ace_value == 11) and turn_1 and (player_1.bet*2) < player_1.balance:
 			hs_input = input('\nWould you like to hit (h), stand (s), or double down (d)?' )
 		else:
 			hs_input = input('\nWould you like to hit (h) or stand (s)?')
@@ -511,8 +511,8 @@ while black_jack_running == True:
 
 	# will give us the dealer's cards
 	if player_blackjack == True:
-		print("\nDealer's cards: ", DECK_DICT[dealer.dealer_cards[0]]['card'],
-								DECK_DICT[dealer.dealer_cards[1]]['card'])
+		print("\nDealer's cards: [", DECK_DICT[dealer.dealer_cards[0]]['card'],"]",
+								"[", DECK_DICT[dealer.dealer_cards[1]]['card'], "]")
 	elif dealer_21 == True:
 		print("\nDealer has Blackjack! Sorry!")
 		player_1.hand_won = False
@@ -521,8 +521,8 @@ while black_jack_running == True:
 		dealer_final_total= dealer.dealer_cards_check_total()
 		get_outcome(dealer_final_total, player_final_total)
 	else:
-		print("\nDealer's cards: ", DECK_DICT[dealer.dealer_cards[0]]['card'],
-								DECK_DICT[dealer.dealer_cards[1]]['card'])
+		print("\nDealer's cards: [", DECK_DICT[dealer.dealer_cards[0]]['card'], "]"
+								"[", DECK_DICT[dealer.dealer_cards[1]]['card']), "]"
 
 	# Adjust player balance (money)
 	player_1.update_balance()
