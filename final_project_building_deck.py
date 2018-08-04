@@ -79,7 +79,10 @@ class Player(object):
 	has_ace = False
 	balance = 1000
 	bet = 0
+<<<<<<< HEAD
 	hand_won = None
+=======
+>>>>>>> 490fbc3a98da1beb356ab5a0e5429868870b580a
 
 	def __init__(self, name):
 		self.name = name
@@ -345,7 +348,11 @@ class Dealer():
 			sleep(1)
 
 	def dealer_reset_attr(self):
+<<<<<<< HEAD
 		self.dealer_cards = []
+=======
+		user_list[0]['current_hand'] = []
+>>>>>>> 490fbc3a98da1beb356ab5a0e5429868870b580a
 
 def get_outcome(dealer_final_total, player_final_total):
 	print('\n', '='*15, '\n  FINAL OUTCOME\n', '='*15)
@@ -426,12 +433,12 @@ def double_down():
 		return print('Your hand: {} '.format(player_1.hand_value))
 
 
-# Create instance of dealer
-dealer =  Dealer()
-
 ### START OF GAME/WHILE LOOP ###
 
 print("Welcome to Blackjack!\n",instructions())
+
+# Create instance of dealer
+dealer =  Dealer()
 
 # Get the player's name
 player_1 = Player(get_player_name())
@@ -507,6 +514,7 @@ while black_jack_running == True:
 			else:
 				player_final_total = player_1.ace_value
 			break
+			
 		elif hs_input.lower() in ['h', 'hit']:
 			player_1.get_card()
 			player_1.check_if_ace()
