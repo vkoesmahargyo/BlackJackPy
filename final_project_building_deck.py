@@ -96,7 +96,7 @@ class Player(object):
 		to_print = []
 		for i in range(len(player_1.player_hand)):
 			to_print.append(player_1.player_hand[i][0])
-		print(player_1.name+ ": [" + "]  [".join(to_print) + "]")
+		print(player_1.name + ": [" + "]  [".join(to_print) + "]")
 
 	def get_wager(self):
 		"""Gets the player's bet"""
@@ -163,6 +163,9 @@ class Player(object):
 		self.bet = 0
 		self.hand_won = None
 
+	def player_bust(self):
+		if self.hand_value > 21:
+			return True
 
 # Card_Deck Class: variables and methods
 class Card_Deck(object):
@@ -518,6 +521,11 @@ while black_jack_running == True:
 				sleep(1)
 				print('You busted!')
 				player_final_total = player_1.hand_value
+
+				#stop dealer from dealing itself a bunch of cards
+				#just show dealers cards
+				#dont compare outcomes?
+				#or only compare outcomes if player total <21
 				break
 			elif player_1.ace_value <= 21 and player_1.has_ace: # soft hand still in play
 				print('Your hand: {} or {}'.format(player_1.hand_value, player_1.ace_value))
@@ -531,14 +539,15 @@ while black_jack_running == True:
 			continue
 
 	# will give us the dealer's cards
-	dealer_final_total= dealer.dealer_cards_check_total()
+	if player_1.player_bust == False:
+		dealer_final_total= dealer.dealer_cards_check_total()
 
 
 	# Do we want to do this one card at a time?
 
 	# Get total of user's hand
 
-	get_outcome(dealer_final_total, player_final_total)
+		get_outcome(dealer_final_total, player_final_total)
 
 	# Adjust player balance (money)
 	player_1.update_balance()
