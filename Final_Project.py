@@ -426,9 +426,9 @@ while black_jack_running == True:
 	#Show the player's hand:
 	player_1.show_hand()
 	if player_1.has_ace: # to print if ace
-		print('{}: {} or {}\n'.format(player_1.name, player_1.hand_value, player_1.ace_value))
+		print('Total: {} or {}\n'.format(player_1.hand_value, player_1.ace_value))
 	else: #  no ace
-		print('{}: {}\n'.format(player_1.name, player_1.hand_value))
+		print('Total: {}\n'.format(player_1.hand_value))
 
 	# Deal out cards to dealer
 	dealer.dealer_get_initial_cards()
