@@ -348,6 +348,16 @@ class Dealer():
 	def dealer_reset_attr(self):
 		self.dealer_cards = []
 
+	def dealer_blackjack(self):
+		total = 0
+		for card in self.dealer_cards:
+			ace = check_if_ace(card)
+			if ace:
+				total += 11
+			else:
+				total += DECK_DICT[card]['value'][0]
+		return total
+
 def get_outcome(dealer_final_total, player_final_total):
 	print('\n', '='*15, '\n  FINAL OUTCOME\n', '='*15)
 	sleep(1)
@@ -434,17 +444,16 @@ while black_jack_running == True:
 	turn_1 = True
 	player_1.busted = False
 	player_blackjack = False
+	dealer_21 = False
 	while True:
 		if player_1.ace_value == 21 and turn_1:
 			print('BLACKJACK! ', player_1.ace_value)
 			player_final_total = player_1.ace_value
 			player_blackjack = True
 			break
-		# elif player_1.ace_value > 21 or player_1.hand_value <= 21:
-		# 	print('Your hand: ', player_1.hand_value)
-		# elif player_1.hand_value > 21:
-		# 	player_final_total = player_1.hand_value
-		# 	break
+		if dealer_blackjack == 21:
+			dealer_21 = True
+			break
 
 		if (player_1.hand_value == 10 or player_1.hand_value == 11 or player_1.ace_value == 10 or player_1.ace_value == 11) and turn_1:
 			hs_input = input('\nWould you like to hit (h), stand (s), or double down (d)?' )
@@ -501,15 +510,19 @@ while black_jack_running == True:
 			continue
 
 	# will give us the dealer's cards
-	if player_1.busted == False:
+	if player_blackjack == True:
+		print("\nDealer's cards: ", DECK_DICT[dealer.dealer_cards[0]]['card'],
+								DECK_DICT[dealer.dealer_cards[1]]['card'])
+	elif dealer_21 == True:
+		print("\nDealer has Blackjack! Sorry!")
+		player_1.hand_won = False
+		player_1.update_balance()
+	elif player_1.busted == False:
 		dealer_final_total= dealer.dealer_cards_check_total()
 		get_outcome(dealer_final_total, player_final_total)
-	elif player_blackjack == True:
-		print("\nDealer's cards: ", DECK_DICT[dealer.dealer_cards[0]]['card'],
-									DECK_DICT[dealer.dealer_cards[1]]['card'])
 	else:
 		print("\nDealer's cards: ", DECK_DICT[dealer.dealer_cards[0]]['card'],
-									DECK_DICT[dealer.dealer_cards[1]]['card'])
+								DECK_DICT[dealer.dealer_cards[1]]['card'])
 
 	# Adjust player balance (money)
 	player_1.update_balance()
