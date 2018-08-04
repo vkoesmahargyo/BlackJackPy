@@ -354,15 +354,12 @@ def get_outcome(dealer_final_total, player_final_total):
 	if dealer_final_total > 21:
 		print('Dealer busts! You win.')
 		player_1.hand_won = True
-		player_1.update_balance
 	elif dealer_final_total < player_final_total:
 		print('You win!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, player_1.name, player_final_total))
 		player_1.hand_won = True
-		player_1.update_balance
 	elif dealer_final_total > player_final_total:
 		print('You lose!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, player_1.name, player_final_total))
 		player_1.hand_won = False
-		player_1.update_balance
 	elif dealer_final_total == player_final_total:
 		print('Push!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, player_1.name, player_final_total))
 
