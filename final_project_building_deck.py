@@ -223,32 +223,32 @@ def instructions():
 class Dealer():
 	"""Creating the dealer in Blackjack"""
 	deck = shuffled_cards.deck
-
+	dealer_cards = []
 	def dealer_get_initial_cards(self):
 		"""Get dealer's initial two cards"""
 		first_card = shuffled_cards.give_one_card()
 		second_card = shuffled_cards.give_one_card()
-		user_list[0]['current_hand'].append(first_card)
-		user_list[0]['current_hand'].append(second_card)
+		self.dealer_cards.append(first_card)
+		self.dealer_cards.append(second_card)
 
 	def get_dealer_face_up_card(self):
 		"""printing out only the first of dealer's cards"""
-		print('Dealer:\t', DECK_DICT[user_list[0]['current_hand'][0]]['card'])
+		print('Dealer:\t', DECK_DICT[self.dealer_cards[0]]['card'])
 
 	def get_dealer_two_card_sum(self):
 		"""Getting sum of dealer's two cards, and returning their total along with
 		length of the first and second card (to check which is an ace)."""
 		total = 0
-		card_1_ace = dealer.check_if_ace(user_list[0]['current_hand'][0])
-		card_2_ace = dealer.check_if_ace(user_list[0]['current_hand'][1])
+		card_1_ace = dealer.check_if_ace(self.dealer_cards[0])
+		card_2_ace = dealer.check_if_ace(self.dealer_cards[1])
 		if card_1_ace == False and card_2_ace == False: # neither is an ace
-			total += DECK_DICT[user_list[0]['current_hand'][0]]['value'][0] + DECK_DICT[user_list[0]['current_hand'][1]]['value'][0] # sum of both cards
+			total += DECK_DICT[self.dealer_cards[0]]['value'][0] + DECK_DICT[self.dealer_cards[1]]['value'][0] # sum of both cards
 		elif card_1_ace == True and card_2_ace == True: # both are aces - very rare
 			total = 12
 		elif card_1_ace == True: # card 1 is an Ace
-			total += DECK_DICT[user_list[0]['current_hand'][0]]['value'][1] + DECK_DICT[user_list[0]['current_hand'][1]]['value'][0] # sum of both cards (where first is Ace = 11)
+			total += DECK_DICT[self.dealer_cards[0]]['value'][1] + DECK_DICT[self.dealer_cards[1]]['value'][0] # sum of both cards (where first is Ace = 11)
 		elif card_2_ace == True: # card 2 is an Ace
-			total += DECK_DICT[user_list[0]['current_hand'][0]]['value'][0] + DECK_DICT[user_list[0]['current_hand'][1]]['value'][1] # sum of both cards (where second is Ace = 11)
+			total += DECK_DICT[self.dealer_cards[0]]['value'][0] + DECK_DICT[self.dealer_cards[1]]['value'][1] # sum of both cards (where second is Ace = 11)
 		return total, card_1_ace, card_2_ace
 
 	def check_if_ace(self, card):
@@ -265,7 +265,7 @@ class Dealer():
 			soft_card = False
 			while True:
 				curr_card = shuffled_cards.give_one_card() # take card from deck
-				user_list[0]['current_hand'].append(curr_card) # add to dealer's current hand
+				self.dealer_cards.append(curr_card) # add to dealer's current hand
 				temp_total = total + DECK_DICT[curr_card]['value'][0]
 
 				if dealer.check_if_ace(curr_card) and total < 11: # if new card is an ace and total is less than 11
@@ -288,7 +288,7 @@ class Dealer():
 			soft_card = True # assume it is a 'soft hand' (since it is either AA, A2, A3, A4, A5, A6)
 			while True:
 				curr_card = shuffled_cards.give_one_card() # take card from deck
-				user_list[0]['current_hand'].append(curr_card) # add to dealer's current hand
+				self.dealer_cards.append(curr_card) # add to dealer's current hand
 				curr_card_value = DECK_DICT[curr_card]['value'][0] # Ace will always = 1 in this case
 				temp_total = total + curr_card_value
 
@@ -327,7 +327,7 @@ class Dealer():
 
 		if turn == True:
 			print('Dealer\'s Hand:\n-----------\n') # header
-			for card in user_list[0]['current_hand']:
+			for card in self.dealer_cards:
 				print(DECK_DICT[card]['card'])
 				turn = False
 				sleep(1)
@@ -337,7 +337,7 @@ class Dealer():
 			sleep(1)
 
 		else:
-			print(DECK_DICT[user_list[0]['current_hand'][-1]]['card'])
+			print(DECK_DICT[self.dealer_cards[-1]]['card'])
 			sleep(1)
 			print('Calculating...')
 			sleep(1)
@@ -345,7 +345,7 @@ class Dealer():
 			sleep(1)
 
 	def dealer_reset_attr(self):
-		user_list[0]['current_hand'] = []
+		self.dealer_cards = []
 
 def get_outcome(dealer_final_total, player_final_total):
 	print('\n', '='*15, '\n  FINAL OUTCOME\n', '='*15)
