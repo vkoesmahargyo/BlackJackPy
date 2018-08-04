@@ -522,7 +522,7 @@ while black_jack_running == True:
 		get_outcome(dealer_final_total, player_final_total)
 	else:
 		print("\nDealer's cards: [", DECK_DICT[dealer.dealer_cards[0]]['card'], "]"
-								"[", DECK_DICT[dealer.dealer_cards[1]]['card']), "]"
+								"[", DECK_DICT[dealer.dealer_cards[1]]['card'], "]")
 
 	# Adjust player balance (money)
 	player_1.update_balance()
