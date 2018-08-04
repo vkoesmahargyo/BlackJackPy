@@ -455,7 +455,7 @@ while black_jack_running == True:
 			dealer_21 = True
 			break
 
-		if (player_1.hand_value == 10 or player_1.hand_value == 11 or player_1.ace_value == 10 or player_1.ace_value == 11) and turn_1 and (player_1.bet*2) < player_1.balance:
+		if (player_1.hand_value == 10 or player_1.hand_value == 11) and turn_1 and (player_1.bet*2) < player_1.balance:
 			hs_input = input('\nWould you like to hit (h), stand (s), or double down (d)?' )
 		else:
 			hs_input = input('\nWould you like to hit (h) or stand (s)?')
@@ -512,7 +512,7 @@ while black_jack_running == True:
 	# will give us the dealer's cards
 	if player_blackjack == True:
 		print("\nDealer's cards: [", DECK_DICT[dealer.dealer_cards[0]]['card'],"]",
-								"[", DECK_DICT[dealer.dealer_cards[1]]['card'], "]")
+								"[", DECK_DICT[dealer.dealer_cards[1]]['card'],"]")
 	elif dealer_21 == True:
 		print("\nDealer has Blackjack! Sorry!")
 		player_1.hand_won = False
