@@ -327,7 +327,7 @@ class Dealer():
 		""" Print the dealer's current hand"""
 
 		if turn == True:
-			print('Dealer\'s Hand:\n-----------\n') # header
+			print('\nDealer\'s Hand:\n-----------\n') # header
 			for card in self.dealer_cards:
 				print(DECK_DICT[card]['card'])
 				turn = False
@@ -521,18 +521,21 @@ while black_jack_running == True:
 	player_1.update_balance()
 
 	# Tell player their current balance
-	print("Your current balance is $", player_1.balance)
+	print("\nYour current balance is $", player_1.balance)
 	# Reset the player's hand to empty list
 	player_1.reset_player_attr()
 	dealer.dealer_reset_attr()
 	# Check if play has enough money to continue playing
-	if player_1.balance < 10:
-		print("Your balance is ", player_1.balance, \
-		"which is below the minimum bet.  You cannot play again. Goodbye!")
-		black_jack_running == False
+
 
 	# Ask if player would like to play again
 	while True:
+		if player_1.balance < 10:
+			print("\nYour balance is ", player_1.balance, \
+			" which is below the minimum bet.  You cannot play again. Goodbye!")
+			black_jack_running = False
+			break
+
 		play_again = input('Would you like to play again (yes/no)? ')
 		if play_again.lower() in "yes":
 			break
