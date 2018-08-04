@@ -518,7 +518,6 @@ while black_jack_running == True:
 	elif dealer_21 == True:
 		print("\nDealer has Blackjack! Sorry!")
 		player_1.hand_won = False
-		player_1.update_balance()
 	elif player_1.busted == False:
 		dealer_final_total= dealer.dealer_cards_check_total()
 		get_outcome(dealer_final_total, player_final_total)
