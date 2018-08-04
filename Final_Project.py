@@ -331,19 +331,19 @@ class Dealer():
 			for card in self.dealer_cards:
 				print(DECK_DICT[card]['card'])
 				turn = False
-				sleep(1)
+				sleep(0.5)
 			print('Calculating...')
-			sleep(1)
+			sleep(0.5)
 			print('\n\tTotal: ', running_total)
-			sleep(1)
+			sleep(0.5)
 
 		else:
 			print(DECK_DICT[self.dealer_cards[-1]]['card'])
-			sleep(1)
+			sleep(0.5)
 			print('Calculating...')
-			sleep(1)
+			sleep(0.5)
 			print('\n\tTotal: ', running_total)
-			sleep(1)
+			sleep(0.5)
 
 	def dealer_reset_attr(self):
 		self.dealer_cards = []
