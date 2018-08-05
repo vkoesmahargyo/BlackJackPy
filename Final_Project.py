@@ -475,7 +475,7 @@ while black_jack_running == True:
 			player_1.check_if_ace()
 			player_1.set_hand_values()
 			player_1.show_hand()
-
+			turn_1 = False
 			if player_1.ace_value > 21 and player_1.hand_value < 22: # bust with soft hand...
 				print('Total: ', player_1.hand_value)
 			elif player_1.hand_value > 21: # bust with regular hand
