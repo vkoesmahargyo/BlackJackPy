@@ -345,7 +345,6 @@ def instructions():
 			either 1 or 11.
 			The Dealer must continue to take cards until they are at a hard 17
 			or above (Please Note: Ace + 6 = Soft 17, dealer must hit).
-			To quit at any time, press 'q'.
 
 			Betting:
 			You start off with $1000 and minimum bet is $10. If you have an
@@ -353,6 +352,7 @@ def instructions():
 			doubling your current bet, and receiving only 1 more card.
 			If you win against the dealer, you double your money; lose, you lose
 			your money, and tie (aka 'push') - keep your money.
+			Blackjack pays 3 to 2. 
 			"""
 	return rules
 
