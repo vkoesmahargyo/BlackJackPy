@@ -352,7 +352,7 @@ def instructions():
 			doubling your current bet, and receiving only 1 more card.
 			If you win against the dealer, you double your money; lose, you lose
 			your money, and tie (aka 'push') - keep your money.
-			Blackjack pays 3 to 2. 
+			Blackjack pays 3 to 2.
 			"""
 	return rules
 
@@ -441,9 +441,10 @@ while black_jack_running == True:
 	dealer_21 = False
 	while True:
 		if player_1.ace_value == 21 and turn_1:
-			print('BLACKJACK! ', player_1.ace_value)
+			print('\n\nBLACKJACK! \n', player_1.ace_value)
 			player_final_total = player_1.ace_value
 			player_blackjack = True
+			sleep(1)
 			break
 		if dealer.dealer_blackjack() == 21:
 			dealer_21 = True
@@ -481,7 +482,8 @@ while black_jack_running == True:
 			elif player_1.hand_value > 21: # bust with regular hand
 				print('Total: ', player_1.hand_value)
 				sleep(1)
-				print('You busted!')
+				print('You busted!\n')
+				sleep(1)
 				player_final_total = player_1.hand_value
 				player_1.busted = True
 				break
