@@ -1,8 +1,6 @@
 import random
 from time import sleep
 
-# Unicode variables representing suits
-
 ## This is how we initially created the deck ##
 CLUB = "\u2663"
 HEART = "\u2665"
@@ -18,7 +16,7 @@ for i in range(1, 53):
 
 					}
 
-# Dictionary for a deck o 52 cards
+# Dictionary for a deck of 52 cards
 DECK_DICT = {
 				1: {'card': 'A ♣', 'value': [1, 11]},
 				2: {'card': '2 ♥', 'value': [2]},
@@ -171,6 +169,7 @@ class Card_Deck(object):
 	deck = []
 
 	def new_deck(self):
+		"""Creates a new card deck """
 		self.deck = [x for x in range(1,53)] * 6
 
 	def shuffle(self):
@@ -182,12 +181,14 @@ class Card_Deck(object):
 		card = self.deck.pop()
 		return card
 
+# Creates an instance of Card_Deck()
 shuffled_cards = Card_Deck()
 
 class Dealer():
 	"""Creating the dealer in Blackjack"""
 	deck = shuffled_cards.deck
 	dealer_cards = []
+
 	def dealer_get_initial_cards(self):
 		"""Get dealer's initial two cards"""
 		first_card = shuffled_cards.give_one_card()
@@ -196,12 +197,12 @@ class Dealer():
 		self.dealer_cards.append(second_card)
 
 	def get_dealer_face_up_card(self):
-		"""printing out only the first of dealer's cards"""
+		"""Printing out only the first of dealer's cards"""
 		print('Dealer:\t', "[", DECK_DICT[self.dealer_cards[0]]['card'], "]")
 
 	def get_dealer_two_card_sum(self):
 		"""Getting sum of dealer's two cards, and returning their total along with
-		length of the first and second card (to check which is an ace)."""
+		True or False value for aces."""
 		total = 0
 		card_1_ace = dealer.check_if_ace(self.dealer_cards[0])
 		card_2_ace = dealer.check_if_ace(self.dealer_cards[1])
@@ -233,10 +234,10 @@ class Dealer():
 				temp_total = total + DECK_DICT[curr_card]['value'][0]
 
 				if dealer.check_if_ace(curr_card) and total < 11: # if new card is an ace and total is less than 11
-					total += 11
+					total += 11 # ace is 11, we have a soft hand
 					soft_card = True
 				elif dealer.check_if_ace(curr_card) and total >= 11: # if new card is an ace and total is >= 11
-					total += 1
+					total += 1 # ace can only be 1, otherwise dealer busts
 				elif soft_card == True and temp_total >= 22: # 'busted' w/ soft hand;  not real bust
 					total = temp_total - 10
 					soft_card = False
@@ -261,8 +262,6 @@ class Dealer():
 					soft_card = False
 				elif temp_total >= 22 and soft_card == False: # dealer busts
 					total = temp_total
-				#elif temp_total <= 21: # if we have a card that doesnt bust
-				#	total = temp_total
 				else:
 					total = temp_total
 
@@ -288,7 +287,6 @@ class Dealer():
 
 	def print_dealer_cards(self, running_total, turn):
 		""" Print the dealer's current hand"""
-
 		if turn == True:
 			print('\nDealer\'s Hand:\n-----------\n') # header
 			for card in self.dealer_cards:
@@ -299,7 +297,6 @@ class Dealer():
 			sleep(0.5)
 			print('\n\tTotal: ', running_total)
 			sleep(0.5)
-
 		else:
 			print("[", DECK_DICT[self.dealer_cards[-1]]['card'], "]")
 			sleep(0.5)
@@ -320,9 +317,6 @@ class Dealer():
 			else:
 				total += DECK_DICT[card]['value'][0]
 		return total
-
-
-
 
 # get a player name
 def get_player_name():
@@ -358,7 +352,7 @@ def instructions():
 
 
 
-
+# Get final outcome
 def get_outcome(dealer_final_total, player_final_total):
 	print('\n', '='*15, '\n  FINAL OUTCOME\n', '='*15)
 	sleep(1)
@@ -373,14 +367,6 @@ def get_outcome(dealer_final_total, player_final_total):
 		player_1.hand_won = False
 	elif dealer_final_total == player_final_total:
 		print('Push!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, player_1.name, player_final_total))
-
-
-
-def check_if_ace(card):
-	if len(DECK_DICT[card]['value']) == 2:
-		return True
-	else:
-		return False
 
 def double_down():
 	"""Player can double their bet and will only receive 1 card """
