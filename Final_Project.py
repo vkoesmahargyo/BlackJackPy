@@ -417,8 +417,8 @@ while black_jack_running == True:
 	else: #  no ace
 		print('Total: {}\n'.format(player_1.hand_value))
 
+	# Deal cards to dealer, and show player the dealer's first card
 	dealer.dealer_get_initial_cards()
-
 	dealer.get_dealer_face_up_card()
 
 	turn_1 = True
