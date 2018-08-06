@@ -390,9 +390,9 @@ def double_down():
 	player_1.show_hand()
 
 	if player_1.has_ace:
-		return print('Total: {} '.format(player_1.ace_value))
+		return print('\nTotal: {} '.format(player_1.ace_value))
 	else:
-		return print('Total: {} '.format(player_1.hand_value))
+		return print('\nTotal: {} '.format(player_1.hand_value))
 
 
 # Create instance of dealer
@@ -451,9 +451,9 @@ while black_jack_running == True:
 			break
 
 		if (player_1.hand_value == 10 or player_1.hand_value == 11) and turn_1 and (player_1.bet*2) < player_1.balance:
-			hs_input = input('\nWould you like to hit (h), stand (s), or double down (d)?' )
+			hs_input = input('\nWould you like to hit (h), stand (s), or double down (d)?\n' )
 		else:
-			hs_input = input('\nWould you like to hit (h) or stand (s)?')
+			hs_input = input('\nWould you like to hit (h) or stand (s)?\n')
 
 		if hs_input.lower() in ['d', 'dd', 'double', 'double down'] and turn_1:
 			player_1.double_down_bet()
