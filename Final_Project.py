@@ -505,6 +505,9 @@ while black_jack_running == True:
 		player_1.bet *= 1.5
 	elif dealer_21 == True:
 		print("\nDealer has Blackjack! Sorry!")
+		sleep(1)
+		print("\nDealer's cards: [", DECK_DICT[dealer.dealer_cards[0]]['card'],"]",
+								"[", DECK_DICT[dealer.dealer_cards[1]]['card'],"]")
 		player_1.hand_won = False
 	elif player_1.busted == False:
 		dealer_final_total= dealer.dealer_cards_check_total()
