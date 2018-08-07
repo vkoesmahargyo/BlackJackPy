@@ -2,6 +2,7 @@ import random
 from time import sleep
 
 ## This is how we initially created the deck ##
+"""
 CLUB = "\u2663"
 HEART = "\u2665"
 DIAMOND = "\u2666"
@@ -13,8 +14,8 @@ for i in range(1, 53):
 	trial_deck[i] = {
 						'card': values[i-1] + ' ' + suits[i-1],
 						'actual_value': []
-
 					}
+"""
 
 # Dictionary for a deck of 52 cards
 DECK_DICT = {
@@ -71,8 +72,15 @@ DECK_DICT = {
 				51: {'card': 'Q ♦', 'value': [10]},
 				52: {'card': 'K ♠', 'value': [10]}}
 
-# Player variables, atributes, and methods
 class Player(object):
+	"""Create a player with attributes and methods for player centered gameplay.
+
+	Has attributes for player's current hand and overall balance.  Has methods
+	for showing a hand or balance, getting a bet, drawing cards, checking for
+	aces in a  hand, computing the value of the current hand, doubling
+	the bet, updating the running balance, and resetting the attributesself.
+
+	"""
 	player_hand = []
 	hand_value = 0
 	ace_value = 0
@@ -83,60 +91,59 @@ class Player(object):
 	bet = 0
 
 	def __init__(self, name):
+		"""Initialize Player class. Takes parameter 'name'."""
 		self.name = name
 
-	def __repr__(self):
-		return "Name: {}, Player Hand: {}, Hand Val: {}, Has Ace: {}, Balance = {}, Bet = {}". format(self.name, self.player_hand, self.hand_value, self.has_ace, self.balance, self. bet)
-
 	def show_balance(self):
-		"""Prints the current balance """
-		print("{} currently has ${}.".format(self.name, self.balance))
+		"""Print the current balance."""
+		print("\n{} currently has ${}.".format(self.name, self.balance))
 
 	def show_hand(self):
-		"""Shows what's in the player's current hand"""
+		"""Print the player current hand."""
 		to_print = []
 		for i in range(len(player_1.player_hand)):
 			to_print.append(player_1.player_hand[i][0])
 		print(player_1.name + ": [" + "]  [".join(to_print) + "]")
 
 	def get_wager(self):
-		"""Gets the player's bet"""
+		"""Get a bet input and add to bet."""
 		while True:
 			try:
-				wager = int(input("How much would you like to bet? (Minimum is $10)." \
-								  + "\n" + "Bet: $ "))
+				wager = int(input("\nHow much would you like to bet?" + \
+				"(Minimum is $10)." + "\n" + "Bet: $ "))
 				if wager < 10:
-					print("\n" + "The minimum bet is $10.  Please try again..." + "\n")
+					print("\n" + "The minimum bet is $10.  Please try again..." \
+					+ "\n")
 					sleep(1)
 				elif wager > self.balance:
-					print("\n" + "You cannot bet more money than you have!" \
-					+  " You bet ${}, but you only have ${}.".format(wager, self.balance) \
-					+ " Please try again..." + "\n")
+					print("\n" + "You cannot bet more money than you have!" + \
+					" You bet ${}, but you only have ${}.".format(wager, self.balance) + \
+					" Please try again..." + "\n")
 					sleep(1)
 				else:
 					self.bet += wager
-					print("\n" + ("=" * 32) + "\n" \
-						+ "Your bet for this hand is ${}.".format(self.bet) \
-						+ "\n" + ("=" * 32) + "\n")
-					sleep(1)
+					print("\n" + ("=" * 32) + "\n" + \
+						"Your bet for this hand is ${}.".format(self.bet) + \
+						"\n" + ("=" * 32) + "\n")
 					break
 			except:
-				print("\n" + "Your bet must be a integar number. Please try again..." + "\n")
+				print("\n" + "Your bet must be an integar number." + \
+				"Please try again..." + "\n")
 				sleep(1)
 
 	def get_card(self):
-		"""Gets a card for the player """
+		"""Get a card and append to hand."""
 		card_key = shuffled_cards.give_one_card()
 		hand_card = [DECK_DICT[card_key]["card"], DECK_DICT[card_key]["value"]]
 		self.player_hand.append(hand_card)
 
 	def check_if_ace(self):
-		"""Checks if card is an Ace"""
+		"""Check last card in hand for ace and set has_ace."""
 		if self.player_hand[len(self.player_hand)-1][0][0] == "A":
 			self.has_ace = True
 
 	def set_hand_values(self):
-		"""Add card value to hand value"""
+		"""Add card value to hand value and ace value if ace is in hand."""
 		if self.has_ace == True:
 			self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
 			self.ace_value = self.hand_value + 10
@@ -144,19 +151,19 @@ class Player(object):
 			self.hand_value += self.player_hand[len(self.player_hand)-1][1][0]
 
 	def double_down_bet(self):
-		"""Doubles the player's bet for doubling down """
-		self.bet *= 2
+		"""Double player bet."""
+		self.bet = int(self.bet * 2)
 		return self.bet
 
 	def update_balance(self):
-		"""Updates the balance """
+		"""Update running balance."""
 		if self.busted == True or self.hand_won	== False:
 			self.balance -= self.bet
 		elif self.hand_won == True:
 			self.balance += self.bet
 
 	def reset_player_attr(self):
-		""" Resets the player's hand"""
+		"""Reset attributes except balance."""
 		self.player_hand = []
 		self.hand_value = 0
 		self.ace_value = 0
@@ -166,42 +173,44 @@ class Player(object):
 		self.busted = False
 
 class Card_Deck(object):
+	"""Create a deck of cards to be used by players and dealerself.
+
+	Create new deck as list of integars, shuffle deck list, remove card from
+	deck list and return.
+
+	"""
 	deck = []
 
 	def new_deck(self):
-		"""Creates a new card deck """
+		"""Create a new card deck list with 6 standard card decks."""
 		self.deck = [x for x in range(1,53)] * 6
 
 	def shuffle(self):
-		"""Shuffles the deck. """
+		"""Shuffle the deck list."""
 		random.shuffle(self.deck)
 
 	def give_one_card(self):
-		"""Removes card from the deck and 'deals' it """
+		"""Remove card from deck list and return."""
 		card = self.deck.pop()
 		return card
 
-# Creates an instance of Card_Deck()
-shuffled_cards = Card_Deck()
-
 class Dealer():
-	"""Creating the dealer in Blackjack"""
-	deck = shuffled_cards.deck
+	"""Create the dealer in Blackjack."""
 	dealer_cards = []
 
 	def dealer_get_initial_cards(self):
-		"""Get dealer's initial two cards"""
+		"""Get dealer's initial two cards."""
 		first_card = shuffled_cards.give_one_card()
 		second_card = shuffled_cards.give_one_card()
 		self.dealer_cards.append(first_card)
 		self.dealer_cards.append(second_card)
 
 	def get_dealer_face_up_card(self):
-		"""Printing out only the first of dealer's cards"""
+		"""Print out only the first of dealer's cards."""
 		print('Dealer:\t', "[", DECK_DICT[self.dealer_cards[0]]['card'], "]")
 
 	def get_dealer_two_card_sum(self):
-		"""Getting sum of dealer's two cards, and returning their total along with
+		"""Get sum of dealer's two cards, and return their total along with
 		True or False value for aces."""
 		total = 0
 		card_1_ace = dealer.check_if_ace(self.dealer_cards[0])
@@ -217,7 +226,7 @@ class Dealer():
 		return total, card_1_ace, card_2_ace
 
 	def check_if_ace(self, card):
-		"""Checking if card is an Ace"""
+		"""Check if card is an Ace."""
 		if len(DECK_DICT[card]['value']) == 2:
 			return True
 		else:
@@ -225,7 +234,7 @@ class Dealer():
 
 
 	def less_than_18(self, total, card_1_ace, card_2_ace):
-		"""If card is a soft 17 or less """
+		"""Direct dealer actions if card is a soft 17 or less."""
 		if (card_1_ace == False and card_2_ace == False): # make sure no Aces
 			soft_card = False
 			while True:
@@ -273,7 +282,7 @@ class Dealer():
 
 
 	def dealer_cards_check_total(self):
-		"""This will see if total is hard 17, > hard 17, or less than 18 """
+		"""Check if total is hard 17, > hard 17, or less than 18."""
 		total, card_1_ace, card_2_ace = dealer.get_dealer_two_card_sum() # getting sum of first 2 cards in dealer's hand
 		dealer.print_dealer_cards(running_total=total, turn = True) # Initial print out of dealer's 2 cards
 		if total > 17 :
@@ -284,9 +293,8 @@ class Dealer():
 			return dealer.less_than_18(total, card_1_ace, card_2_ace)
 
 
-
 	def print_dealer_cards(self, running_total, turn):
-		""" Print the dealer's current hand"""
+		"""Print the dealer's current hand."""
 		if turn == True:
 			print('\nDealer\'s Hand:\n-----------\n') # header
 			for card in self.dealer_cards:
@@ -311,14 +319,14 @@ class Dealer():
 	def dealer_blackjack(self):
 		total = 0
 		for card in self.dealer_cards:
-			ace = check_if_ace(card)
+			ace = self.check_if_ace(card)
 			if ace:
 				total += 11
 			else:
 				total += DECK_DICT[card]['value'][0]
 		return total
 
-# get a player name
+# Get a player name
 def get_player_name():
 	while True:
 		user_name = input("\nPlease enter your name: ")
@@ -329,28 +337,17 @@ def get_player_name():
 			return user_name
 			break
 
-# tell player how to play Black Jack
-def instructions():
-	rules = """The point of the game is to beat the dealer's hand without
-			going over 21. You will be dealt 2 cards, as will the dealer
-			but only one of the dealer's cards will be shown. You can choose
-			to stand (s) - stop being dealt cards, or hit (h) - continue
-			to be dealth cards. All face cards are worth 10, an Ace can be
-			either 1 or 11.
-			The Dealer must continue to take cards until they are at a hard 17
-			or above (Please Note: Ace + 6 = Soft 17, dealer must hit).
+# Give player one card and print value of hand if player doubles down
+def double_down():
+	player_1.get_card()
+	player_1.check_if_ace()
+	player_1.set_hand_values()
+	player_1.show_hand()
 
-			Betting:
-			You start off with $1000 and minimum bet is $10. If you have an
-			initial hand of 10 or 11, you have the option to 'double down (d)',
-			doubling your current bet, and receiving only 1 more card.
-			If you win against the dealer, you double your money; lose, you lose
-			your money, and tie (aka 'push') - keep your money.
-			Blackjack pays 3 to 2.
-			"""
-	return rules
-
-
+	if player_1.has_ace:
+		return print('\nTotal: {} '.format(player_1.ace_value))
+	else:
+		return print('\nTotal: {} '.format(player_1.hand_value))
 
 # Get final outcome
 def get_outcome(dealer_final_total, player_final_total):
@@ -368,31 +365,61 @@ def get_outcome(dealer_final_total, player_final_total):
 	elif dealer_final_total == player_final_total:
 		print('Push!\n\nDealer: {}\n{}: {}'.format(dealer_final_total, player_1.name, player_final_total))
 
-def double_down():
-	"""Player can double their bet and will only receive 1 card """
-	player_1.get_card()
-	player_1.check_if_ace()
-	player_1.set_hand_values()
-	player_1.show_hand()
+# Instructions for gameplay
+rules = """
+			Instructions:
+			The point of the game is to beat the dealer's hand without
+			going over 21. You will be dealt 2 cards, as will the dealer
+			but only one of the dealer's cards will be shown. You can choose
+			to stand (s) - stop being dealt cards, or hit (h) - continue
+			to be dealth cards. All face cards are worth 10, an Ace can be
+			either 1 or 11.
+			The Dealer must continue to take cards until they are at a hard 17
+			or above (Please Note: Ace + 6 = Soft 17, dealer must hit).
 
-	if player_1.has_ace:
-		return print('\nTotal: {} '.format(player_1.ace_value))
-	else:
-		return print('\nTotal: {} '.format(player_1.hand_value))
+			Betting:
+			You start off with $1000 and minimum bet is $10. If you have an
+			initial hand of 10 or 11, you have the option to 'double down (d)',
+			doubling your current bet, and receiving only 1 more card.
+			If you win against the dealer, you double your money; lose, you lose
+			your money, and tie (aka 'push') - keep your money.
+			Blackjack pays 3 to 2.
+			"""
 
+logo = """
+888888b.   888                   888       d8b                   888
+888  "88b  888                   888       Y8P                   888
+888  .88P  888                   888                             888
+8888888K.  888  8888b.   .d8888b 888  888 8888  8888b.   .d8888b 888  888
+888  "Y88b 888     "88b d88P"    888 .88P "888     "88b d88P"    888 .88P
+888    888 888 .d888888 888      888888K   888 .d888888 888      888888K
+888   d88P 888 888  888 Y88b.    888 "88b  888 888  888 Y88b.    888 "88b
+8888888P"  888 "Y888888  "Y8888P 888  888  888 "Y888888  "Y8888P 888  888
+                                           888
+                                          d88P
+                                        888P"
+"""
 
-# Create instance of dealer
+# Create an instance of Card_Deck()
+shuffled_cards = Card_Deck()
+
+# Create instance of Dealer()
 dealer =  Dealer()
 
-### START OF GAME/WHILE LOOP ###
-print("Welcome to Blackjack!\n",instructions())
+print("\nWelcome to...\n")
+sleep(1)
+print(logo)
+sleep(2)
+print("\n", rules)
+sleep(1)
 
-# Get the player's name
+# Get the player's name and assign to Player class object
 player_1 = Player(get_player_name())
 
-black_jack_running = True
+blackjack_running = True
 
-while black_jack_running == True:
+### START OF GAME/WHILE LOOP ###
+while blackjack_running == True:
 
 	# Get new deck and shuffle
 	shuffled_cards.new_deck()
@@ -401,7 +428,7 @@ while black_jack_running == True:
 	# Get the player's bet
 	player_1.get_wager()
 
-	# Deal a card to the player, check if it's an ace
+	# Deal a card to the player, check for ace,
 	# increment value of hand, repeat for 2nd card
 	player_1.get_card()
 	player_1.check_if_ace()
@@ -409,22 +436,28 @@ while black_jack_running == True:
 	player_1.get_card()
 	player_1.check_if_ace()
 	player_1.set_hand_values()
+	sleep(1)
 
-	#Show the player's hand:
+	#Show the player's hand and current hand value:
 	player_1.show_hand()
-	if player_1.has_ace: # to print if ace
-		print('Total: {} or {}\n'.format(player_1.hand_value, player_1.ace_value))
-	else: #  no ace
-		print('Total: {}\n'.format(player_1.hand_value))
 
-	# Deal cards to dealer, and show player the dealer's first card
+	if player_1.has_ace:
+		print('Total: {} or {}\n'.format(player_1.hand_value, player_1.ace_value))
+	else:
+		print('Total: {}\n'.format(player_1.hand_value))
+	sleep(1)
+
+	# Deal cards to dealer, and show dealer's first card
 	dealer.dealer_get_initial_cards()
 	dealer.get_dealer_face_up_card()
+	sleep(1)
 
+	# Set variables for first turn blackjack
 	turn_1 = True
-	player_1.busted = False
 	player_blackjack = False
 	dealer_21 = False
+
+	# Check for blackjack first turn
 	while True:
 		if player_1.ace_value == 21 and turn_1:
 			print('\n\nBLACKJACK! \n', player_1.ace_value)
@@ -436,6 +469,7 @@ while black_jack_running == True:
 			dealer_21 = True
 			break
 
+		# Get user input for gameplay: hit, stand or double down
 		if (player_1.hand_value == 10 or player_1.hand_value == 11) and turn_1 and (player_1.bet*2) < player_1.balance:
 			hs_input = input('\nWould you like to hit (h), stand (s), or double down (d)?\n' )
 		else:
@@ -463,9 +497,11 @@ while black_jack_running == True:
 			player_1.set_hand_values()
 			player_1.show_hand()
 			turn_1 = False
-			if player_1.ace_value > 21 and player_1.hand_value < 22: # bust with soft hand...
+			sleep(1)
+
+			if player_1.ace_value > 21 and player_1.hand_value <= 21:
 				print('Total: ', player_1.hand_value)
-			elif player_1.hand_value > 21: # bust with regular hand
+			elif player_1.hand_value > 21:
 				print('Total: ', player_1.hand_value)
 				sleep(1)
 				print('You busted!\n')
@@ -473,7 +509,7 @@ while black_jack_running == True:
 				player_final_total = player_1.hand_value
 				player_1.busted = True
 				break
-			elif player_1.ace_value <= 21 and player_1.has_ace: # soft hand still in play
+			elif player_1.ace_value <= 21 and player_1.has_ace:
 				print('Total: {} or {}'.format(player_1.hand_value, player_1.ace_value))
 				sleep(1)
 			else:
@@ -481,7 +517,9 @@ while black_jack_running == True:
 				sleep(1)
 
 		else:
-			print('Please only put hit (h) or stand (s)')
+			sleep(1)
+			print('Please only enter hit (h) or stand (s)')
+			sleep(1)
 			continue
 
 	if player_blackjack == True:
@@ -502,27 +540,33 @@ while black_jack_running == True:
 		print("\nDealer's cards: [", DECK_DICT[dealer.dealer_cards[0]]['card'], "]"
 								"[", DECK_DICT[dealer.dealer_cards[1]]['card'], "]")
 
-	# Adjust player balance (money)
+	# Adjust player balance
 	player_1.update_balance()
+	player_1.show_balance()
 
-	print("\nYour current balance is $", player_1.balance)
-	# Reset the player's and dealer's hands to empty list
+	# Reset player and dealer attributes
 	player_1.reset_player_attr()
 	dealer.dealer_reset_attr()
+
 	# Ask if player would like to play again
 	while True:
-		if player_1.balance < 10:	# Check if play has enough money to continue playing
+		if player_1.balance < 10:
 			print("\nYour balance is ", player_1.balance, \
-			" which is below the minimum bet.  You cannot play again. Goodbye!")
-			black_jack_running = False
+			" dollars which is below the minimum bet." + \
+			"You do not have enough money to play again. Goodbye!")
+			blackjack_running = False
 			break
 
-		play_again = input('Would you like to play again (yes/no)? ')
-		if play_again.lower() in "yes":
+		play_again = input("\nWould you like to play again (yes/no)?")
+		if play_again.lower() in ["y", "yes"]:
+			sleep(.5)
+			print("\nDealing new hand...\n\n")
+			sleep(1)
 			break
-		elif play_again.lower() in "no":
-			print('Thanks for playing!')
-			black_jack_running = False
+		elif play_again.lower() in ["n", "no"]:
+			print("\nThanks for playing!")
+			blackjack_running = False
 			break
 		else:
-			print("Please only enter 'yes' or 'no'")
+			print("\nPlease only enter 'yes' or 'no'\n")
+			sleep(1)
