@@ -452,8 +452,11 @@ while blackjack_running == True:
 	for player in player_list:
 		print("\n{}'s turn.".format(player.name))
 		sleep(1)
+		# Reset player hand and quit_list
 		player.reset_player_attr()
-		print(player.name, player.player_hand, player.hand_value, player.ace_value, player.has_ace, player.balance)
+		quit_list = []
+
+		# Get player bet
 		player.get_wager()
 
 		# Deal a card to the player, check for ace,
