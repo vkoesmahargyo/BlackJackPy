@@ -450,7 +450,7 @@ while blackjack_running == True:
 	shuffled_cards.shuffle()
 
 	for player in player_list:
-		print("\n{}'s turn.".format(player.name))
+		print("\n{}, please enter your bet.".format(player.name))
 		sleep(1)
 		# Reset player hand and quit_list
 		player.reset_player_attr()
@@ -458,6 +458,16 @@ while blackjack_running == True:
 
 		# Get player bet
 		player.get_wager()
+
+	# Deal cards to dealer, and show dealer's first card
+	dealer.dealer_get_initial_cards()
+	sleep(1)
+
+	for player in player_list:
+		print("\n{}'s turn.".format(player.name))
+		sleep(1)
+
+		dealer.get_dealer_face_up_card()
 
 		# Deal a card to the player, check for ace,
 		# increment value of hand, repeat for 2nd card
@@ -477,11 +487,6 @@ while blackjack_running == True:
 		else:
 			print('Total: {}\n'.format(player.hand_value))
 			sleep(1)
-
-		# Deal cards to dealer, and show dealer's first card
-		dealer.dealer_get_initial_cards()
-		dealer.get_dealer_face_up_card()
-		sleep(1)
 
 		# Set variables for first turn blackjack
 		turn_1 = True
@@ -552,31 +557,31 @@ while blackjack_running == True:
 				sleep(1)
 				continue
 
+	dealer_final_total= dealer.dealer_cards_check_total()
+	print("\nDealer's cards: [", DECK_DICT[dealer.dealer_cards[0]]['card'],"]",
+	"[", DECK_DICT[dealer.dealer_cards[1]]['card'],"]")
+
+	for player in player_list:
+		print("\n{}'s outcome.".format(player.name))
+		sleep(1)
+
 		if player_blackjack == True:
-			print("\nDealer's cards: [", DECK_DICT[dealer.dealer_cards[0]]['card'],"]",
-			"[", DECK_DICT[dealer.dealer_cards[1]]['card'],"]")
 			player.hand_won = True
 			player.bet *= 1.5
 		elif dealer_21 == True:
 			print("\nDealer has Blackjack! Sorry!")
 			sleep(1)
-			print("\nDealer's cards: [", DECK_DICT[dealer.dealer_cards[0]]['card'],"]",
-			"[", DECK_DICT[dealer.dealer_cards[1]]['card'],"]")
 			player.hand_won = False
 		elif player.busted == False:
-			dealer_final_total= dealer.dealer_cards_check_total()
 			get_outcome(dealer_final_total, player_final_total, player)
-		else:
-			print("\nDealer's cards: [", DECK_DICT[dealer.dealer_cards[0]]['card'], "]",
-			"[", DECK_DICT[dealer.dealer_cards[1]]['card'], "]")
 
 		# Adjust player balance
 		player.update_balance()
 		player.show_balance()
 		sleep(1)
 
-		# Reset dealer attributes
-		dealer.dealer_reset_attr()
+	# Reset dealer attributes
+	dealer.dealer_reset_attr()
 
 	quit_list = []
 	# Ask if player would like to play again
