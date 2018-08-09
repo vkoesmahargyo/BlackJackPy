@@ -481,7 +481,7 @@ while blackjack_running == True:
 			if player_1.has_ace:
 				player_final_total = player_1.ace_value
 			else:
-				player_final_total = player.hand_value
+				player_final_total = player_1.hand_value
 				turn_1 = False
 			break
 
