@@ -345,9 +345,9 @@ def double_down():
 	player_1.show_hand()
 
 	if player_1.has_ace:
-		return print('\nTotal: {} '.format(player_1.ace_value))
+		print('\nTotal: {} '.format(player_1.ace_value))
 	else:
-		return print('\nTotal: {} '.format(player_1.hand_value))
+		print('\nTotal: {} '.format(player_1.hand_value))
 
 # Get final outcome
 def get_outcome(dealer_final_total, player_final_total):
@@ -481,8 +481,8 @@ while blackjack_running == True:
 			if player_1.has_ace:
 				player_final_total = player_1.ace_value
 			else:
-				player_final_total = player_1.hand_value
-			turn_1 = False
+				player_final_total = player.hand_value
+				turn_1 = False
 			break
 
 		if hs_input.lower() in ['s', 'stand']:
