@@ -16,4 +16,9 @@ Double Down: The concept where if a player has a 9, 10, or 11, they can ‘doubl
 Potential Extra Components (as time/skill allows):
 </br>
 Multiple players
-Splitting: If the player has two of the same cards (ie: 9 9, etc.) they can split them (add more to the bet) and then play each hand like normal.
+
+The main game is run through Final_Project.py. The game is fully functional for a single player, with hit, stand and doubling down options, multiple (six) decks of cards, and betting implementation.
+
+The multiplayer version of the game, Final_Project_Multiplayer.py runs and is fully functional but has not been fully tested. It incorporates all functionality of the main game, and can handle up to 4 players.
+
+We've also kept other parts of our code that was used in testing the game in a separate folder within the ITP_FINAL_PROJECT repository.
