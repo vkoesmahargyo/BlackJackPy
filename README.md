@@ -2,6 +2,10 @@
 </br>
 Final Project:
 Blackjack card game
+by:
+Vidya Koesmahargyo
+Eden Feldman
+Kit McDonald
 
 </br>
 Basic Blackjack game: 
@@ -13,12 +17,12 @@ Added Components:
 Betting: Player starts off with X amount of dollars and can bet up to 5 times the betting amount. </
 Double Down: The concept where if a player has a 9, 10, or 11, they can ‘double down’ (add double the amount of money they have in) and receive only one more card.
 </br>
-Potential Extra Components (as time/skill allows):
-</br>
 Multiple players
-
+</br>
+FINAL VERSION:
+</br>
 The main game is run through Final_Project.py. The game is fully functional for a single player, with hit, stand and doubling down options, multiple (six) decks of cards, and betting implementation.
-
+</br>
 The multiplayer version of the game, Final_Project_Multiplayer.py runs and is fully functional but has not been fully tested. It incorporates all functionality of the main game, and can handle up to 4 players.
 
 We've also kept other parts of our code that was used in testing the game in a separate folder within the ITP_FINAL_PROJECT repository.
