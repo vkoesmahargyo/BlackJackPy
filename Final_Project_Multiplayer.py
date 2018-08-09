@@ -72,7 +72,7 @@ DECK_DICT = {
 				51: {'card': 'Q ♦', 'value': [10]},
 				52: {'card': 'K ♠', 'value': [10]}}
 
-class Player(object):
+class Player:
 	"""Create a player with attributes and methods for player centered gameplay.
 
 	Has attributes for player's current hand and overall balance.  Has methods
@@ -81,7 +81,6 @@ class Player(object):
 	the bet, updating the running balance, and resetting the attributesself.
 
 	"""
-	player_hand = []
 	hand_value = 0
 	has_ace = False
 	busted = False
@@ -92,6 +91,7 @@ class Player(object):
 	def __init__(self, name):
 		"""Initialize Player class. Takes parameter 'name'."""
 		self.name = name
+		self.player_hand = []
 
 	def show_balance(self):
 		"""Print the current balance."""
@@ -166,14 +166,15 @@ class Player(object):
 		self.hand_won = None
 		self.busted = False
 
-class Card_Deck(object):
+class Card_Deck:
 	"""Create a deck of cards to be used by players and dealerself.
 
 	Create new deck as list of integars, shuffle deck list, remove card from
 	deck list and return.
 
 	"""
-	deck = []
+	def __init__(self):
+		self.deck = []
 
 	def new_deck(self):
 		"""Create a new card deck list with 6 standard card decks."""
@@ -517,7 +518,7 @@ while blackjack_running == True:
 				sleep(.5)
 				print()
 				double_down(player)
-				if player.has_ace:
+				if player.has_ace and (player.hand_value +10) <=21:
 					player.hand_value +=10
 				else:
 					if player.hand_value > 21:
