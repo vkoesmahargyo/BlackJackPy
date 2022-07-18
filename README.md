@@ -1,4 +1,4 @@
-# ITP_FINAL_PROJECT
+# BlackJackPy
 </br>
 Final Project: Blackjack card game
 </br>
@@ -14,7 +14,7 @@ The main game is run through Final_Project.py. The game is fully functional for 
 </br>
 The multiplayer version of the game, Final_Project_Multiplayer.py runs and is fully functional but has not been fully tested. It incorporates all functionality of the main game, and can handle up to 4 players.
 </br>
-We've also kept other parts of our code that was used in testing the game in a separate folder within the ITP_FINAL_PROJECT repository.
+We've also kept other parts of our code that was used in testing the game in a separate folder within the BlackJackPy repository.
 </br>
 
 
